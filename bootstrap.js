@@ -105,6 +105,10 @@ function openTab(evt, tabName) {
     $("hr").show();
     var div = document.getElementById("tablo");
     div.innerHTML = '';
+    $("#zohoRd").hide();
+    $("#zohoSc").hide();
+    $("#zohoId").hide();
+    $("#zohoCd").hide();
 }
 
 $(document).ready(function(){
