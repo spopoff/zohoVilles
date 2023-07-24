@@ -105,19 +105,4 @@ function openTab(evt, tabName) {
     $("hr").show();
     var div = document.getElementById("tablo");
     div.innerHTML = '';
-    $("#zohoRd").hide();
-    $("#zohoSc").hide();
-    $("#zohoId").hide();
-    $("#zohoCd").hide();
 }
-
-$(document).ready(function(){
-	zohoUrl = localStorage.getItem("zohoUrl");
-	$('#zohoUrl').val(zohoUrl);
-	zohoRd = localStorage.getItem("zohoRd");
-	$('#zohoRd').val(zohoRd);
-	zohoSc = localStorage.getItem("zohoSc");
-	$('#zohoSc').val(zohoSc);
-	zohoId = localStorage.getItem("zohoId");
-	$('#zohoId').val(zohoId);
-});
