@@ -1,0 +1,464 @@
+img {
+    height: auto; 
+    width: auto; 
+    max-width: 80px; 
+    max-height: 80px;
+    float: left;
+}
+p {
+    line-height: 0.8;
+}
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+th {
+    background-color: #f72717;
+    color: white;
+}
+tr.header
+{
+    cursor:pointer;
+}
+/*onglet*/
+.onglet {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  margin-top: 5px;
+}
+
+/* Style the buttons that are used to open the tab content */
+.onglet button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.onglet button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.onglet button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+  height: 60px;
+}
+.tabcontent200 {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+  height: 200px;
+}
+.tabcontent500 {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+  height: 500px;
+}
+a:hover {
+  color: hotpink;
+}
+.box25{
+    width: 25%;
+    box-sizing: border-box;
+     float: left;
+}
+.box75{
+    width: 75%;
+    box-sizing: border-box;
+    float: left;
+}
+.box33{
+    width: 33%;
+    box-sizing: border-box;
+     float: left;
+}
+.box34{
+    width: 34%;
+    box-sizing: border-box;
+     float: left;
+}
+.box67{
+    width: 67%;
+    box-sizing: border-box;
+    float: left;
+}
+.box50{
+    width: 50%;
+    box-sizing: border-box;
+    float: left;
+}
+.box100{
+    width: 100%;
+    box-sizing: border-box;
+     float: left;
+}
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+input[type="number"] {
+    width: 50px;
+}
+.q-graph {
+  display: block; /* fixes layout wonkiness in FF1.5 */
+  position: relative;
+  width: 750px;
+  height: 450px;
+  margin: 1.1em 0 0;
+  padding: 0;
+  background: #DDD url(fade-light.png) round;
+  border: 2px solid gray;
+  font: 12px Helvetica, Geneva, sans-serif;}
+.q-graph #g1 {width: 750px;}
+.q-graph #g2 {width: 750px;}
+.q-graph #g3 {width: 750px;}
+.q-graph #g4 {width: 750px;}
+.q-graph #g5 {width: 750px;}
+.q-graph #g6 {width: 750px;}
+.q-graph #g7 {width: 750px;}
+.q-graph #g8 {width: 750px;}
+.q-graph #g9 {width: 750px;}
+.q-graph #g10 {width: 750px;}
+.q-graph #g11 {width: 750px;}
+.q-graph #g12 {width: 750px;}
+.q-graph #g13 {width: 750px;}
+.q-graph #g14 {width: 750px;}
+.q-graph #g15 {width: 750px;}
+.q-graph #g16 {width: 750px;}
+.q-graph #g17 {width: 750px;}
+.q-graph #g18 {width: 750px;}
+.q-graph #g19 {width: 750px;}
+.q-graph #g20 {width: 750px;}
+.q-graph #g21 {width: 750px;}
+.q-graph #g22 {width: 750px;}
+.q-graph #g23 {width: 750px;}
+.q-graph #g24 {width: 750px;}
+.q-graph #g25 {width: 750px;}
+.q-graph #g26 {width: 750px;}
+.q-graph #g27 {width: 750px;}
+.q-graph #g28 {width: 750px;}
+.q-graph #g29 {width: 750px;}
+.q-graph #g30 {width: 750px;}
+.q-graph #g31 {width: 750px;}
+.q-graph #g32 {width: 750px;}
+.q-graph #g33 {width: 750px;}
+
+.q-graph caption {
+  caption-side: top;
+  width: 600px;
+  position: relative; z-index: 10;
+  font-weight: bold;
+}
+.q-graph caption #g1 {width: 750px;}
+.q-graph caption #g2 {width: 750px;}
+.q-graph caption #g3 {width: 750px;}
+.q-graph caption #g4 {width: 750px;}
+.q-graph caption #g5 {width: 750px;}
+.q-graph caption #g6 {width: 750px;}
+.q-graph caption #g7 {width: 750px;}
+.q-graph caption #g8 {width: 750px;}
+.q-graph caption #g9 {width: 750px;}
+.q-graph caption #g10 {width: 750px;}
+.q-graph caption #g11 {width: 750px;}
+.q-graph caption #g12 {width: 750px;}
+.q-graph caption #g13 {width: 750px;}
+.q-graph caption #g14 {width: 750px;}
+.q-graph caption #g15 {width: 750px;}
+.q-graph caption #g16 {width: 750px;}
+.q-graph caption #g17 {width: 750px;}
+.q-graph caption #g18 {width: 750px;}
+.q-graph caption #g19 {width: 750px;}
+.q-graph caption #g20 {width: 750px;}
+.q-graph caption #g21 {width: 750px;}
+.q-graph caption #g22 {width: 750px;}
+.q-graph caption #g23 {width: 750px;}
+.q-graph caption #g24 {width: 750px;}
+.q-graph caption #g25 {width: 750px;}
+.q-graph caption #g26 {width: 750px;}
+.q-graph caption #g27 {width: 750px;}
+.q-graph caption #g28 {width: 750px;}
+.q-graph caption #g29 {width: 750px;}
+.q-graph caption #g30 {width: 750px;}
+.q-graph caption #g31 {width: 750px;}
+.q-graph caption #g32 {width: 750px;}
+.q-graph caption #g33 {width: 750px;}
+ 
+.q-graph tr, .q-graph th, .q-graph td { 
+  background: #DDD url(fade-light.png) repeat-x;
+  position: absolute;
+  bottom: 0;
+  width: 100px;
+  margin: 0; padding: 0;
+  text-align: center;}
+.q-graph th {
+  color: black;
+}
+.q-graph td {
+  z-index: 2;
+}
+.q-graph thead tr {left: 100%; top: 50%; bottom: auto;
+  margin: -2.5em 0 0 5em;
+}
+.q-graph thead th {width: 18em; height: 1em; padding: 0.5em 1em;}
+.q-graph thead th.tot {top: 0; left: 0; border: 1px solid;}
+.q-graph thead th.add {top: 0; left: 0; border: 1px solid;}
+.q-graph thead th.del {top: 4em; left: 0; border: 1px solid;}
+.q-graph thead th.non {top: 2em; left: 0; border: 1px solid;}
+
+.q-graph tbody tr {height: 439px; padding-top: 9px;
+  border-right: 1px dotted #C4C4C4; color: #AAA;}
+.q-graph #q2 {left: 100px;}
+.q-graph #qf2 {left: 100px;;border-right: none;}
+.q-graph #q3 {left: 200px;}
+.q-graph #qf3 {left: 200px;border-right: none;}
+.q-graph #q4 {left: 300px;}
+.q-graph #qf4 {left: 300px; border-right: none;}
+.q-graph #qf5 {left: 400px; border-right: none;}
+.q-graph #q5 {left: 400px;}
+.q-graph #qf6 {left: 500px; border-right: none;}
+.q-graph #q6 {left: 500px;}
+.q-graph #qf7 {left: 600px; border-right: none;}
+.q-graph #q7 {left: 600px;}
+.q-graph #qf8 {left: 700px; border-right: none;}
+.q-graph #q8 {left: 700px;}
+.q-graph #qf9 {left: 800px; border-right: none;}
+.q-graph #q9 {left: 800px;}
+.q-graph #qf10 {left: 900px; border-right: none;}
+.q-graph #q10 {left: 900px;}
+.q-graph #qf11 {left: 1000px; border-right: none;}
+.q-graph #q11 {left: 1000px;}
+.q-graph #qf12 {left: 1100px; border-right: none;}
+.q-graph #q12 {left: 1100px;}
+.q-graph #qf13 {left: 1200px; border-right: none;}
+.q-graph #q13 {left: 1200px;}
+.q-graph #qf14 {left: 1300px; border-right: none;}
+.q-graph #q14 {left: 1300px;}
+.q-graph #qf15 {left: 1400px; border-right: none;}
+.q-graph #q15 {left: 1400px;}
+.q-graph #qf16 {left: 1500px; border-right: none;}
+.q-graph #q16 {left: 1500px;}
+.q-graph #qf17 {left: 1600px; border-right: none;}
+.q-graph #q17 {left: 1600px;}
+.q-graph #qf18 {left: 1700px; border-right: none;}
+.q-graph #q18 {left: 1700px;}
+.q-graph #qf19 {left: 1800px; border-right: none;}
+.q-graph #q19 {left: 1800px;}
+.q-graph #qf20 {left: 1900px; border-right: none;}
+.q-graph #q20 {left: 1900px;}
+.q-graph #qf21 {left: 2000px; border-right: none;}
+.q-graph #q21 {left: 2000px;}
+.q-graph #qf22 {left: 2100px; border-right: none;}
+.q-graph #q22 {left: 2100px;}
+.q-graph #qf23 {left: 2200px; border-right: none;}
+.q-graph #q23 {left: 2200px;}
+.q-graph #qf24 {left: 2300px; border-right: none;}
+.q-graph #q24 {left: 2300px;}
+.q-graph #qf25 {left: 2400px; border-right: none;}
+.q-graph #q25 {left: 2400px;}
+.q-graph #qf26 {left: 2500px; border-right: none;}
+.q-graph #q26 {left: 2500px;}
+.q-graph #qf27 {left: 2600px; border-right: none;}
+.q-graph #q27 {left: 2600px;}
+.q-graph #qf28 {left: 2700px; border-right: none;}
+.q-graph #q28 {left: 2700px;}
+.q-graph #qf29 {left: 2800px; border-right: none;}
+.q-graph #q29 {left: 2800px;}
+.q-graph #qf30 {left: 2900px; border-right: none;}
+.q-graph #q30 {left: 2900px;}
+.q-graph #qf31 {left: 3000px; border-right: none;}
+.q-graph #q31 {left: 3000px;}
+.q-graph #qf32 {left: 3100px; border-right: none;}
+.q-graph #q32 {left: 3100px;}
+.q-graph #qf33 {left: 3200px; border-right: none;}
+.q-graph #qf33 {left: 3200px; border-right: none;}
+.q-graph #q33 {left: 3200px;}
+
+.q-graph tbody th {top: 0.75em; vertical-align: top;}
+.q-graph .bar {width: 10px; border: 1px solid; border-bottom: none; color: #000;}
+.q-graph .bar p {margin: -10px 0 0; padding: 0; color: black}
+.q-graph .tot {left: 10px; background: #DCA url(fade-dark.png) round;
+  border-color: #EDC #BA9 #000 #EDC;}
+.q-graph .add {left: 10px; background: #9D9 url(fade-dark.png) round;
+  border-color: #CDC #9B9 #000 #BFB;}
+.q-graph .del {left: 70px; background: #827fde url(fade-dark.png) round;
+  border-color: #827fde;}
+.q-graph .non {left: 40px; background: #DDD url(fade-dark.png) round;
+  border-color: black}
+
+
+.ticks {
+	position: relative;
+	top: -458px;
+	left: 2px;
+	width: 596px;
+	height: 439px;
+	margin-bottom: -300px;
+	font: 9px Helvetica, Geneva, sans-serif;
+}
+.ticks #g1 {width: 750px; top: -438px;}
+.ticks #g2 {width: 750px; top: -438px;}
+.ticks #g3 {width: 750px; top: -438px;}
+.ticks #g4 {width: 750px; top: -438px;}
+.ticks #g5 {width: 750px; top: -438px;}
+.ticks #g6 {width: 750px; top: -438px;}
+.ticks #g7 {width: 750px; top: -438px;}
+.ticks #g8 {width: 750px; top: -438px;}
+.ticks #g9 {width: 750px; top: -438px;}
+.ticks #g10 {width: 750px; top: -438px;}
+
+.ticks .tick {
+	position: relative;
+	z-index: 1;
+	border-bottom: 1px solid #BBB;
+	width: 670px;
+}
+.ticks .tick #g1 {width: 750px; top: -438px;}
+.ticks .tick #g2 {width: 750px; top: -438px;}
+.ticks .tick #g3 {width: 750px; top: -438px;}
+.ticks .tick #g4 {width: 750px; top: -438px;}
+.ticks .tick #g5 {width: 750px; top: -438px;}
+.ticks .tick #g6 {width: 750px; top: -438px;}
+.ticks .tick #g7 {width: 750px; top: -438px;}
+.ticks .tick #g8 {width: 750px; top: -438px;}
+.ticks .tick #g9 {width: 750px; top: -438px;}
+.ticks .tick #g10 {width: 750px; top: -438px;}
+
+.ticks .tick p {
+	position: absolute;
+	left: 100%;
+	top: -0.67em;
+	margin: 0 0 0 0.5em;
+}
+
+
+.header .sign:after{
+  content:"+";
+  display:inline-block;      
+}
+.header.expand .sign:after{
+  content:"-";
+ }
+ tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+.centre {
+	text-align: center;
+}
+.idnt {
+	position: relative;
+	top: -680px;
+	left: 46%;
+}
+.app {
+	position: relative;
+	top : -680px;
+	left : 47%;
+}
+.org {
+	position: relative;
+	top: -680px;
+	left: 48%;
+}
+.hiera {
+	position: relative;
+	top : -680px;
+	left : 55%;
+}
+.bouton {
+	position : relative;
+	top: -680px;
+	left : 50%;
+}
+.list {
+	position :relative;
+	top: -660px;
+	left: 46%;
+}
+.point {
+	position: absolute;
+	top : 700px;
+	left : -45%;
+}
+.point2 {
+	position: absolute;
+	top : 800px;
+	left : -45%;
+}
+.idnt32 {
+	position: relative;
+	left: 1%;
+}
+.app32 {
+	position: relative;
+	left : 5%;
+}
+.mvt3 {
+	position : relative;
+	left : 10%;
+}
+.bouton32 {
+	position : relative;
+	top : -1px;
+	left : 13%;
+}
+.list32 {
+	position :relative;
+	top : -1px;
+	left: 1%;
+}
+.list2 {
+	position :relative;
+	top: 720px;
+	left: 1%;
+}
+.idnt2 {
+	position: relative;
+	top: 700px;
+	left: 1%;
+}
+.app2 {
+	position: relative;
+	top : 700px;
+	left : 5%;
+}
+.mvt {
+	position : relative;
+	top: 700px;
+	left : 10%;
+}
+.bouton2 {
+	position : relative;
+	top: 700px;
+	left : 13%;
+}
+.list2 {
+	position :relative;
+	top: 720px;
+	left: 1%;
+}
+.condensedlines {              
+    font-size:   10pt;
+    line-height: 10pt;  /* try also a bit smaller line-height */
+}
+	

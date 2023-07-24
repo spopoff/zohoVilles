@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!--
+Copyright Stéphane Georges Popoff, (juillet 2009 - juillet 2023)
+
+spopoff@rocketmail.com
+
+Ce logiciel est un programme informatique servant à gérer des habilitations.
+
+Ce logiciel est régi par la licence [CeCILL|CeCILL-B|CeCILL-C] soumise au droit français et
+respectant les principes de diffusion des logiciels libres. Vous pouvez
+utiliser, modifier et/ou redistribuer ce programme sous les conditions
+de la licence [CeCILL|CeCILL-B|CeCILL-C] telle que diffusée par le CEA, le CNRS et l'INRIA
+sur le site "http://www.cecill.info".
+
+En contrepartie de l'accessibilité au code source et des droits de copie,
+de modification et de redistribution accordés par cette licence, il n'est
+offert aux utilisateurs qu'une garantie limitée.  Pour les mêmes raisons,
+seule une responsabilité restreinte pèse sur l'auteur du programme,  le
+titulaire des droits patrimoniaux et les concédants successifs.
+
+A cet égard  l'attention de l'utilisateur est attirée sur les risques
+associés au chargement,  à l'utilisation,  à la modification et/ou au
+développement et à la reproduction du logiciel par l'utilisateur étant
+donné sa spécificité de logiciel libre, qui peut le rendre complexe à
+manipuler et qui le réserve donc à des développeurs et des professionnels
+avertis possédant  des  connaissances  informatiques approfondies.  Les
+utilisateurs sont donc invités à charger  et  tester  l'adéquation  du
+logiciel à leurs besoins dans des conditions permettant d'assurer la
+sécurité de leurs systèmes et ou de leurs données et, plus généralement,
+à l'utiliser et l'exploiter dans les mêmes conditions de sécurité.
+
+Le fait que vous puissiez accéder à cet en-tête signifie que vous avez
+pris connaissance de la licence [CeCILL|CeCILL-B|CeCILL-C], et que vous en avez accepté les
+termes.
+-->
+<html>
+    <head>
+        <title>ZOHO Access API</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <img src='logo2.png' alt="logo" style="margin-right: 10px"/>
+        <script src='jquery-3.3.1.min.js'></script>
+        <script src='Chart.min.js'></script>
+        <script src='bootstrap.js'></script>
+        <script src='utils.js'></script>
+        <script src='dataChart.js'></script>
+        <link rel='stylesheet' type='text/css' href='style.css'/>
+    </head>
+    <body>
+        <h2 id="titre">ZOHO Access API</h2>
+        <div id="msg"></div>
+        <div class="onglet">
+            <button class="tablinks" onclick="openTab(event, 'Parameters')">Parameters</button>
+            <button class="tablinks" onclick="openTab(event, 'Leads')">Leads</button>
+            <button class="tablinks" onclick="openTab(event, 'Accounts')">Accounts</button>
+            <button class="tablinks" onclick="openTab(event, 'Contacts')">Contacts</button>
+            <button class="tablinks" onclick="openTab(event, 'Graphics')">Graphics</button>
+        </div>
+        <div id="Parameters" class="tabcontent200">
+            <div class="box100">
+                <label for="zohoUrl">ZOHO API URL:</label>
+                <input id="zohoUrl" type="text" size="100" placeholder="https://www.zohoapis.com/crm/v2/" required><br/>
+                <label for="zohoRd">Redirect URL:</label>
+                <input id="zohoRd" type="text" size="50" placeholder="https://oauth.pstmn.io/v1/browser-callback"/><br/>
+                <label for="zohoSc">Scopes:</label>
+                <input id="zohoSc" type="text" size="10" placeholder="ZohoCRM.users.ALL,ZohoCRM.acccounts.ALL,ZohoCRM.deals.ALL"/><br/>
+                <label for="zohoId">Client ID:</label>
+                <input id="zohoId" type="text" size="50" /><br/>
+                <label for="zohoSt">Client Secret:</label>
+                <input id="zohoSt" type="text" size="100" /><br/>
+                <label for="zohoCd">Code:</label>
+                <input id="zohoCd" type="text" size="100" /><br/>
+                <label for="zohoAk">Access Token:</label>
+                <input id="zohoAk" type="text" size="100" />
+            </div>
+            <button onclick="test()">test API !</button>&nbsp;&nbsp;
+        </div>
+	</br>
+        <div id="Leads" class="tabcontent">
+            
+        </div>
+        <div id="Accounts" class="tabcontent">
+            
+        </div>
+        <div id="Contacts" class="tabcontent">
+            
+        </div>
+        <div id="Graphics" class="tabcontent500">
+            
+        </div>
+        <hr size='10' noshade>
+	<div id="tablo"></div></br>
+	<div id="tabloRes"></div></br>
+	<div id="tabloErr"></div>
+    </body>
+</html>
