@@ -318,7 +318,6 @@ function test(){
 	var head = new Headers();
 	head.append("Content-Type", "application/json");
 	head.append("Authorization", "Zoho-oauthtoken "+zohoAk);
-        head.append("Origin","http://spopoff.com");
 	var param = {
 		method: 'Get',
 		headers: head
