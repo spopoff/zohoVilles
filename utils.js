@@ -327,10 +327,13 @@ function test(){
 		if(response.ok){
 			return response.clone().json();
 		}else{
-			setInfoTab(tableErr,'Error test access token: ' + response.status+" message="+response.statusText);
+                    alert("Test API KO !");
+                    setInfoTab(tableErr,'Error test access token: ' + response.status+" message="+response.statusText);
 		}
 	}).then(function(res){
+            if(res !== undefined){
 		alert("Test API OK");
+            }
 	})
 	.catch(function(error) {
 		setInfoTab(tableErr,'Error test access token: ' + error.message);
