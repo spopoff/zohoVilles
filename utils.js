@@ -281,11 +281,11 @@ function clearTablos(){
     tableErr = document.createElement('table');
     var div = document.getElementById("tabloRes");
     div.innerHTML = '';
+    div.appendChild(tableRes);
     div = document.getElementById("tabloErr");
     div.appendChild(tableErr);
     div.innerHTML = '';
     div = document.getElementById("tablo");
-    div.appendChild(tableRes);
     div.innerHTML = '';
 }
 function tableInfos(tab, divName, title){
