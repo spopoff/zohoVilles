@@ -277,37 +277,39 @@ function getAccessToken(idnId, idnSt, idnNm, aps){
 	});
 }
 function clearTablos(){
-	tableRes = document.createElement('table');
-	tableErr = document.createElement('table');
+    tableRes = document.createElement('table');
+    tableErr = document.createElement('table');
     var div = document.getElementById("tabloRes");
     div.innerHTML = '';
     div = document.getElementById("tabloErr");
+    div.appendChild(tableErr);
     div.innerHTML = '';
     div = document.getElementById("tablo");
+    div.appendChild(tableRes);
     div.innerHTML = '';
 }
 function tableInfos(tab, divName, title){
-	if(tab.childNodes.length === 0){
-		var tr = document.createElement('tr');   
-		var th1 = document.createElement('th');
-		var txh1 = document.createTextNode(title);
-		th1.appendChild(txh1);
-		tr.appendChild(th1);
-		tab.appendChild(tr);
-	}
+    if(tab.childNodes.length === 0){
+        var tr = document.createElement('tr');   
+        var th1 = document.createElement('th');
+        var txh1 = document.createTextNode(title);
+        th1.appendChild(txh1);
+        tr.appendChild(th1);
+        tab.appendChild(tr);
+    }
     var div = document.getElementById(divName);
     div.innerHTML = '';
     div.appendChild(tab);
-	$(div).hide();
+    $(div).hide();
 }
 function setInfoTab(tab, info){
-	$(tab.parentNode).show();
-	var tr = document.createElement('tr');   
-	var th1 = document.createElement('td');
-	var txh1 = document.createTextNode(info);
-	th1.appendChild(txh1);
-	tr.appendChild(th1);
-	tab.appendChild(tr);
+    $(tab.parentNode).show();
+    var tr = document.createElement('tr');   
+    var th1 = document.createElement('td');
+    var txh1 = document.createTextNode(info);
+    th1.appendChild(txh1);
+    tr.appendChild(th1);
+    tab.appendChild(tr);
 }
 function test(){
     clearTablos();
@@ -316,10 +318,9 @@ function test(){
     if(zohoUrl !==  undefined && zohoUrl !== "" && zohoAk !==  undefined && zohoAk !== ""){
 	var url = zohoUrl + "settings/modules";
 	var head = new Headers();
-	head.append("Content-Type", "application/json");
 	head.append("Authorization", "Zoho-oauthtoken "+zohoAk);
 	var param = {
-		method: 'Get',
+		method: 'GET',
 		headers: head
 	};
 	var req = new Request(url,param);
