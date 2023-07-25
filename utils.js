@@ -282,11 +282,11 @@ function clearTablos(){
     var div = document.getElementById("tabloRes");
     div.innerHTML = '';
     div.appendChild(tableRes);
-    div = document.getElementById("tabloErr");
-    div.appendChild(tableErr);
-    div.innerHTML = '';
-    div = document.getElementById("tablo");
-    div.innerHTML = '';
+    var div2 = document.getElementById("tabloErr");
+    div2.appendChild(tableErr);
+    div2.innerHTML = '';
+    var div3 = document.getElementById("tablo");
+    div3.innerHTML = '';
 }
 function tableInfos(tab, divName, title){
     if(tab.childNodes.length === 0){
