@@ -319,6 +319,7 @@ function test(){
 	var url = zohoUrl + "settings/modules";
 	var head = new Headers();
 	head.append("Authorization", "Zoho-oauthtoken "+zohoAk);
+        head.append("If-Modified-Since", "2020-05-15T12:00:00+05:30");
 	var param = {
 		method: 'GET',
 		headers: head
@@ -326,10 +327,11 @@ function test(){
 	var req = new Request(url,param);
 	fetch(req, param).then(function(response){
 		if(response.ok){
-			return response.clone().json();
+                    return response.clone().json();
 		}else{
                     alert("Test API KO !");
-                    setInfoTab(tableErr,'Error test access token: ' + response.status+" message="+response.statusText);
+                    setInfoTab(tableErr,'Error test access token: '
+                            + response.status+' message='+response.statusText);
 		}
 	}).then(function(res){
             if(res !== undefined){
