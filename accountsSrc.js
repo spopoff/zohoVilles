@@ -103,7 +103,7 @@ function getReportAccount(isFile){
     if(!isFile){
         var tab = headTabAccount();
         accounts.forEach(function(account){
-            rowTabLead(tab, account);
+            rowTabAccount(tab, account);
         });
     }else{
         text = "accontName;phone;accountParent;reseau;accountType;id\n";
