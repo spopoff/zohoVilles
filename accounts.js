@@ -3959,7 +3959,7 @@ var accn851826000000111298 = new Account("LIBRAIRIE DU CENTRE","",{},[],"Sociét
 accounts.set(851826000000111298, accn851826000000111298);
 var accn851826000053872853 = new Account("Communauté d'Agglomération de Grand Châtellerault","0672981788",{},[],"null","851826000053872853");
 accounts.set(851826000053872853, accn851826000053872853);
-var accn851826000000111299 = new Account("Librairie Georges Et Association des commerçants, artisans et professions libérales \\"Au coeur de Talence\\"","05 56 04 68 00",{},[],"Société","851826000000111299");
+var accn851826000000111299 = new Account("Librairie Georges Et Association des commerçants, artisans et professions libérales \"Au coeur de Talence\"","05 56 04 68 00",{},[],"Société","851826000000111299");
 accounts.set(851826000000111299, accn851826000000111299);
 var accn851826000000788437 = new Account("Ville de Haubourdin","",{},[],"null","851826000000788437");
 accounts.set(851826000000788437, accn851826000000788437);
