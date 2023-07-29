@@ -34,24 +34,28 @@ termes.
  */
 function rowTabLead(table, lead){
     var tr = document.createElement('tr'); 
-    var thi = document.createElement('th');
+    var thi = document.createElement('td');
     var txhi = document.createTextNode(lead.Email);
     thi.appendChild(txhi);
     tr.appendChild(thi);
-    var tha = document.createElement('th');
+    var tha = document.createElement('td');
     var txha = document.createTextNode(lead.First_Name);
     tha.appendChild(txha);
     tr.appendChild(tha);
-    var ths = document.createElement('th');
+    var ths = document.createElement('td');
     var txhs = document.createTextNode(lead.Last_Name);
     ths.appendChild(txhs);
     tr.appendChild(ths);
-    var thp = document.createElement('th');
+    var thp = document.createElement('td');
     var txhp = document.createTextNode(lead.Company);
     thp.appendChild(txhp);
     tr.appendChild(thp);
-    var tht = document.createElement('th');
-    var txht = document.createTextNode(lead.Tag);
+    var tht = document.createElement('td');
+    var tags = "";
+    lead.Tag.forEach(function(tag){
+        tags += tag.name +" ";
+    });
+    var txht = document.createTextNode(tags);
     tht.appendChild(txht);
     tr.appendChild(tht);
     table.appendChild(tr);
