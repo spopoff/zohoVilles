@@ -44,30 +44,20 @@ termes.
         <script src='bootstrap.js'></script>
         <script src='utils.js'></script>
         <script src='dataChart.js'></script>
+        <script src='leads.js'></script>
         <link rel='stylesheet' type='text/css' href='style.css'/>
     </head>
     <body>
         <h2 id="titre">ZOHO Access API</h2>
         <div id="msg"></div>
         <div class="onglet">
-            <button class="tablinks" onclick="openTab(event, 'Parameters')">Parameters</button>
             <button class="tablinks" onclick="openTab(event, 'Leads')">Leads</button>
             <button class="tablinks" onclick="openTab(event, 'Accounts')">Accounts</button>
             <button class="tablinks" onclick="openTab(event, 'Contacts')">Contacts</button>
             <button class="tablinks" onclick="openTab(event, 'Graphics')">Graphics</button>
         </div>
-        <div id="Parameters" class="tabcontent200">
-            <div class="box100">
-                <label for="zohoUrl">ZOHO API URL:</label>
-                <input id="zohoUrl" type="text" size="100" value="https://www.zohoapis.com/crm/v2/" required><br/>
-                <label for="zohoAk">Access Token:</label>
-                <input id="zohoAk" type="text" size="100" />
-            </div>
-            <button onclick="test()">test API !</button>&nbsp;&nbsp;
-        </div>
-	</br>
         <div id="Leads" class="tabcontent">
-            
+            <button onclick="showReportLead()">report Leads !</button>&nbsp;&nbsp;
         </div>
         <div id="Accounts" class="tabcontent">
             

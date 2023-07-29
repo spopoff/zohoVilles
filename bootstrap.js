@@ -70,6 +70,20 @@ class DataSet{
         this.data.push(data);
     }
 }
+class Leads{
+    constructor(First_Name, Last_Name, Email, Company, Tag, id){
+        this.First_Name =  First_Name;
+        this.Last_Name =  Last_Name;
+        this.Email =  Email;
+        this.Company =  Company;
+        this.Tag =  Tag;
+        this.id = id;
+    }
+    set addAccount(account){
+        this.accounts.push(account);
+        account.addLead = this;
+    }
+}
 var color = Chart.helpers.color;
 var chartSeul = {};
 /**
