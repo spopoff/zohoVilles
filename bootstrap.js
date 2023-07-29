@@ -97,6 +97,27 @@ class Account{
         this.leads.push(lead);
         lead.addAccount = this;
     }
+    set addContact(contact){
+        this.contacts.push(contact);
+        contact.addAccount = this;
+    }
+}
+class Contact{
+    constructor(Last_Name,First_Name,Full_Name,Email,Account_Name,Owner,Membre_du_R_seau,Tag,id){
+        this.Last_Name =  Last_Name;
+        this.First_Name =  First_Name;
+        this.Full_Name =  Full_Name;
+        this.Email =  Email;
+        this.Account_Name =  Account_Name;
+        this.Owner =  Owner;
+        this.Membre_du_R_seau =  Membre_du_R_seau;
+        this.Tag =  Tag;
+        this.id = id;
+    }
+    set addAccount(account){
+        this.accounts.push(account);
+        account.addContact = this;
+    }
 }
 var color = Chart.helpers.color;
 var chartSeul = {};
