@@ -84,6 +84,20 @@ class Lead{
         account.addLead = this;
     }
 }
+class Account{
+    constructor(Account_Name, Phone, Parent_Account, Reseau, Account_Type, id){
+        this.Account_Name =  Account_Name;
+        this.Phone =  Phone;
+        this.Parent_Account =  Parent_Account;
+        this.Reseau =  Reseau;
+        this.Account_Type =  Account_Type;
+        this.id = id;
+    }
+    set addLead(lead){
+        this.leads.push(lead);
+        lead.addAccount = this;
+    }
+}
 var color = Chart.helpers.color;
 var chartSeul = {};
 /**

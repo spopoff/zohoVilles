@@ -32,73 +32,83 @@ Le fait que vous puissiez accéder à cet en-tête signifie que vous avez
 pris connaissance de la licence [CeCILL|CeCILL-B|CeCILL-C], et que vous en avez accepté les
 termes.
  */
-function rowTabLead(table, lead){
+/* global accounts */
+
+function rowTabAccount(table, accnt){
     var tr = document.createElement('tr'); 
     var thi = document.createElement('td');
-    var txhi = document.createTextNode(lead.Email);
+    var txhi = document.createTextNode(accnt.Account_Name);
     thi.appendChild(txhi);
     tr.appendChild(thi);
     var tha = document.createElement('td');
-    var txha = document.createTextNode(lead.First_Name);
+    var txha = document.createTextNode(accnt.Phone);
     tha.appendChild(txha);
     tr.appendChild(tha);
     var ths = document.createElement('td');
-    var txhs = document.createTextNode(lead.Last_Name);
+    var parent = "";
+    if(accnt.Parent_Account !== undefined){
+        parent = accnt.Parent_Account.name;
+    }
+    var txhs = document.createTextNode(parent);
     ths.appendChild(txhs);
     tr.appendChild(ths);
     var thp = document.createElement('td');
-    var txhp = document.createTextNode(lead.Company);
+    var reseau = "";
+    var sep = "";
+    if(accnt.Reseau !== undefined){
+        accnt.Reseau.forEach(function(rezo){
+            reseau += sep + rezo.name;
+            sep = "; ";
+        });
+    }
+    var txhp = document.createTextNode(reseau);
     thp.appendChild(txhp);
     tr.appendChild(thp);
     var tht = document.createElement('td');
-    var tags = "";
-    lead.Tag.forEach(function(tag){
-        tags += tag.name +" ";
-    });
-    var txht = document.createTextNode(tags);
+    var txht = document.createTextNode(accnt.Account_Type);
     tht.appendChild(txht);
     tr.appendChild(tht);
     table.appendChild(tr);
 }
 
 
-function headTabLead(){
+function headTabAccount(){
     var table = document.createElement('table');
     var tr = document.createElement('tr'); 
     var thi = document.createElement('th');
-    var txhi = document.createTextNode('Email');
+    var txhi = document.createTextNode('Account_Name');
     thi.appendChild(txhi);
     tr.appendChild(thi);
     var tha = document.createElement('th');
-    var txha = document.createTextNode('First Name');
+    var txha = document.createTextNode('Phone');
     tha.appendChild(txha);
     tr.appendChild(tha);
     var ths = document.createElement('th');
-    var txhs = document.createTextNode('Last Name');
+    var txhs = document.createTextNode('Account_Parent');
     ths.appendChild(txhs);
     tr.appendChild(ths);
     var thp = document.createElement('th');
-    var txhp = document.createTextNode('Company');
+    var txhp = document.createTextNode('Reseau');
     thp.appendChild(txhp);
     tr.appendChild(thp);
     var tht = document.createElement('th');
-    var txht = document.createTextNode('Tag');
+    var txht = document.createTextNode('Account_Type');
     tht.appendChild(txht);
     tr.appendChild(tht);
     table.appendChild(tr);
     return table;
 }
 
-function getReportLead(isFile){
+function getReportAccount(isFile){
     if(!isFile){
-        var tab = headTabLead();
-        leads.forEach(function(lead){
-            rowTabLead(tab, lead);
+        var tab = headTabAccount();
+        accounts.forEach(function(account){
+            rowTabLead(tab, account);
         });
     }else{
-        text = "email;firstName;lastName;company;tag;id\n";
+        text = "accontName;phone;accountParent;reseau;accountType;id\n";
         var sep = ";";
-        leads.forEach(function(attr){
+        accounts.forEach(function(attr){
             text += attr.Email + sep + attr.First_Name + sep + attr.Last_Name
              + sep + attr.Company + sep + attr.Tag + sep + attr.id + "\n";
         });
@@ -109,6 +119,6 @@ function getReportLead(isFile){
     return;
 }
 
-function showReportLead(){
-    getReportLead(false);
+function showReportAccount(){
+    getReportAccount(false);
 }
