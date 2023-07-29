@@ -70,7 +70,7 @@ class DataSet{
         this.data.push(data);
     }
 }
-class Leads{
+class Lead{
     constructor(First_Name, Last_Name, Email, Company, Tag, id){
         this.First_Name =  First_Name;
         this.Last_Name =  Last_Name;
