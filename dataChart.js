@@ -306,7 +306,7 @@ function getData(objGF){
 function getMapSize(x) {
     var len = 0;
     const it = x.keys();
-    for (const key in it) {
+    for (const key of it) {
             len++;
     }
 
