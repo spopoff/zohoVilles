@@ -32,7 +32,7 @@ Le fait que vous puissiez accéder à cet en-tête signifie que vous avez
 pris connaissance de la licence [CeCILL|CeCILL-B|CeCILL-C], et que vous en avez accepté les
 termes.
  */
-/* global eckali, tableRes, tooltip, Tooltips, lastSelState, lastSel, lastSelComp, comps, ecusers */
+/* global zohokali, tableRes, tooltip, Tooltips */
 class KalitestResult{
     constructor(qualState, dataObject, name, reasons){
         this.qualState = qualState;
@@ -120,7 +120,7 @@ function getKaliTest(kaliName, filter){
     var tab = headListKali();
     var nbK = 0;
     var sel = []
-    eckali.forEach(function(unK){
+    zohokali.forEach(function(unK){
         if(kaliName === unK.name && filter === "ALL"){
             sel.push(unK)
             nbK++;
