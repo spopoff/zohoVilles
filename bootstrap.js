@@ -156,3 +156,42 @@ function openTab(evt, tabName) {
     var div = document.getElementById("tablo");
     div.innerHTML = '';
 }
+function getQueryString(href){
+    var result = {};
+    var qs = href.slice(1);
+    var parts = qs.split("#");
+    var prms = parts[1].split("&");
+    if(prms.length > 1){
+        for(var i = 0, len=prms.length; i<len; i++){
+            var tokens = prms[i].split("=");
+            result[tokens[0]] = tokens[1];
+        }
+    }else{
+        var tokens = parts[1].split("=");
+        result[tokens[0]] = tokens[1];
+    }
+    return result;
+}
+window.onhashchange = function( e ) {
+    console.log( location.hash );
+    if(location.hash !== ""){
+        var prms = getQueryString(location.href);
+        if(prms.pkl !== undefined){
+            getLeadInfo(prms.pkl);
+        }
+        if(prms.pkc !== undefined){
+            getContactInfo(prms.pkc);
+        }
+        if(prms.pka !== undefined){
+            getAccountInfo(prms.pka);
+        }
+    }
+};
+if(!window.HashChangeEvent)(function(){
+    var lastURL=document.URL;
+    window.addEventListener("hashchange",function(event){
+        Object.defineProperty(event,"oldURL",{enumerable:true,configurable:true,value:lastURL});
+        Object.defineProperty(event,"newURL",{enumerable:true,configurable:true,value:document.URL});
+        lastURL=document.URL;
+    });
+}());

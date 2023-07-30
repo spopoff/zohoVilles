@@ -88,7 +88,14 @@ function headTabLead(){
     table.appendChild(tr);
     return table;
 }
-
+function getLeadInfo(id){
+    clearTablos();
+    const lead = leads.get(id);
+    if(lead !== undefined){
+        var tab = headTabLead();
+        rowTabLead(tab, lead);
+    }
+}
 function getReportLead(isFile){
     if(!isFile){
         var tab = headTabLead();
