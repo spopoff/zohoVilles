@@ -235,11 +235,11 @@ function getData(objGF){
             //Nb Leads Contacts Accounts
             var ids = new DataSet("nbLCA");
             objGF.addLabel = "Leads nb";
-            ids.addData = leads.size;
+            ids.addData = getMapSize(leads);
             objGF.addLabel = "Accounts nb";
-            ids.addData = accounts.size;
+            ids.addData = getMapSize(accounts);
             objGF.addLabel = "Contacts nb";
-            ids.addData = contacts.size;
+            ids.addData = getMapSize(contacts);
             objGF.addDataset = ids;
         break;
         case "2_2":
@@ -302,6 +302,14 @@ function getData(objGF){
         break;
     }
     return objGF;
+}
+function getMapSize(x) {
+    var len = 0;
+    for (var count in x) {
+            len++;
+    }
+
+    return len;
 }
 /**
  * 
