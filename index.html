@@ -88,7 +88,13 @@ termes.
             <button onclick="showReportContact()">report Contacts !</button>&nbsp;&nbsp;
         </div>
         <div id="Graphics" class="tabcontent500">
-            
+            <label for="graf">Select Metric:&nbsp;</label><select id="grafs" class="orgas2" name="lesGrafs">
+                    <option value="2_1">Nb of Datas</option>
+            </select>
+            &nbsp;&nbsp;<button onclick="showGraph()">Show Graphic !</button><br/>
+            <div id="container1" class="boite">
+                    <canvas id="chartUn"  class="chart-boite"></canvas>
+            </div>
         </div>
         <hr size='10' noshade>
 	<div id="tablo"></div></br>

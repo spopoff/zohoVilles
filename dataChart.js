@@ -223,19 +223,14 @@ function getBarChartData(objGF){
 function getData(objGF){
     switch(objGF.code){
         case "2_1":
-            //Nb Criterias by Labels
-            //par label on compte le nb de critères décision
-            var ids = new DataSet("nbCrit");
-            lbls.forEach(function(lbl){
-                objGF.addLabel = lbl.name;
-                var i = 0;
-                crtds.forEach(function(crt){
-                    if(lbl.oid === crt.oidLbl){
-                        i++;
-                    }
-                });
-                ids.addData = i;
-            });
+            //Nb Leads Contacts Accounts
+            var ids = new DataSet("nbLCA");
+            objGF.addLabel = "Leads nb";
+            ids.addData = leads.size;
+            objGF.addLabel = "Accounts nb";
+            ids.addData = accounts.size;
+            objGF.addLabel = "Contacts nb";
+            ids.addData = contacts.size;
             objGF.addDataset = ids;
         break;
         case "2_2":
