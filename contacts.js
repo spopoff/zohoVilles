@@ -18251,8 +18251,7 @@ var cnt851826000000110967 = new Contact("DE CHILLY","Alain","M. Alain DE CHILLY"
 contacts.set(851826000000110967, cnt851826000000110967);
 var cnt851826000051610129 = new Contact("Le Torrec","Mathieu","Mathieu Le Torrec","null",{name:"CA Mont-Saint-Michel-Normandie", id:"851826000050528168"},{name:"Clément BRIHAT", id:"851826000016139058"},"",[],"851826000051610129");
 contacts.set(851826000051610129, cnt851826000051610129);
-var cnt851826000000110968 = new Contact("PITTET","Lise","Mme Lise PITTET","L.PITTET@INCITE-BORDEAUX.FR
-l.pittet@incite-bordeaux.fr",{name:"inCité Bordeaux Métropole Territoires", id:"851826000012682033"},{name:"Gwenaëlle Airiau", id:"851826000000064011"},"",[],"851826000000110968");
+var cnt851826000000110968 = new Contact("PITTET","Lise","Mme Lise PITTET","l.pittet@incite-bordeaux.fr",{name:"inCité Bordeaux Métropole Territoires", id:"851826000012682033"},{name:"Gwenaëlle Airiau", id:"851826000000064011"},"",[],"851826000000110968");
 contacts.set(851826000000110968, cnt851826000000110968);
 var cnt851826000051610122 = new Contact("Le Pissart","Benjamin","Benjamin Le Pissart","null",{name:"CA Mont-Saint-Michel-Normandie", id:"851826000050528168"},{name:"Clément BRIHAT", id:"851826000016139058"},"",[],"851826000051610122");
 contacts.set(851826000051610122, cnt851826000051610122);
