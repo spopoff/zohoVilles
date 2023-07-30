@@ -99,10 +99,12 @@ function getLeadInfo(id){
     }
 }
 function getReportLead(isFile){
+    var nbK = 0;
     if(!isFile){
         var tab = headTabLead();
         leads.forEach(function(lead){
             rowTabLead(tab, lead);
+            nbK++;
         });
     }else{
         text = "email;firstName;lastName;company;tag;id\n";
@@ -113,11 +115,13 @@ function getReportLead(isFile){
         });
         text += "\n";
     }
+    setInfoTab(tableRes, "nb case="+nbK);
     var div = document.getElementById("tablo");
     div.appendChild(tab);
     return;
 }
 
 function showReportLead(){
+    clearTablos();
     getReportLead(false);
 }
