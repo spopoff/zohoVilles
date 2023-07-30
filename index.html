@@ -50,17 +50,35 @@ termes.
         <script src='accountsSrc.js'></script>
         <script src='contacts.js'></script>
         <script src='contactsSrc.js'></script>
+        <script src='contacts.js'></script>
+        <script src='kalitest.js'></script>
+        <script src='leadsKali.js'></script>
         <link rel='stylesheet' type='text/css' href='style.css'/>
     </head>
     <body>
         <h2 id="titre">ZOHO Access API</h2>
         <div id="msg"></div>
         <div class="onglet">
+            <button id="IdDataKali" class="tablinks" onclick="openTab(event, 'DataKali')">Data Quality</button>
             <button class="tablinks" onclick="openTab(event, 'Leads')">Leads</button>
             <button class="tablinks" onclick="openTab(event, 'Accounts')">Accounts</button>
             <button class="tablinks" onclick="openTab(event, 'Contacts')">Contacts</button>
             <button class="tablinks" onclick="openTab(event, 'Graphics')">Graphics</button>
         </div>
+            <div id="DataKali" class="tabcontent">
+                <label for="kali">Data Quality Test:</label>&nbsp;<select id="kali" class="orgas2" name="lesKali">
+                    <option value="kali1">Legal Leads Categories</option>
+                    <option value="kali2">Manager User access</option>
+                    <option value="kali3">Job event start date</option>
+                </select>&nbsp;&nbsp;
+                <label for="kaliState">State filter:</label>&nbsp;<select id="kaliState" class="orgas2" name="lesKaliState">
+                    <option value="ALL" selected>All States</option>
+                    <option value="CONFORM">Conform to conformance test</option>
+                    <option value="DEFECT">Break the conformance test</option>
+                    <option value="NA">Non applicable</option>
+                </select>&nbsp;&nbsp;
+                <button onclick="showKaliTest()">Show test !</button>
+		</div>
         <div id="Leads" class="tabcontent">
             <button onclick="showReportLead()">report Leads !</button>&nbsp;&nbsp;
         </div>
