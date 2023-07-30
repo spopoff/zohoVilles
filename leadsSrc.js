@@ -90,7 +90,12 @@ function headTabLead(){
 }
 function getLeadInfo(id){
     clearTablos();
-    const lead = leads.get(Number(id));
+    var lead = undefined;
+    leads.forEach(function(lid){
+        if(id === "lid"+lid.id){
+            lead = lid;
+        }
+    });
     if(lead !== undefined){
         var tab = headTabLead();
         rowTabLead(tab, lead);

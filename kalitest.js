@@ -74,16 +74,16 @@ function getLink(obj, td){
             found = true;
             xe.text = " link to Account ";
             xe.id = val;
-            xe.href = "#pka="+val;
+            xe.href = "#pka=accn"+val;
         }else if(key === "contactId"){
             xe.text = " link to Contact ";
             xe.id = val;
-            xe.href = "#pka="+val;
+            xe.href = "#pkc=cnt"+val;
             found = true;
         }else if(key === "leadId"){
             xe.text = " link to Lead ";
             xe.id = val;
-            xe.href = "#pkl="+val;
+            xe.href = "#pkl=lid"+val;
             found = true;
         }
     }

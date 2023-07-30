@@ -45,6 +45,9 @@ var zohoSc = "";
 var zohoId = "";
 var zohoCd = "";
 var zohokali = [];
+var leads = [];
+var contacts = [];
+var accounts = [];
 
 class DataChart{
     constructor(code, type, label){
