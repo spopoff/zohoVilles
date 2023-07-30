@@ -8369,7 +8369,7 @@ var cnt851826000000111540 = new Contact("GAUDEFROY","Ariane","Mme Ariane GAUDEFR
 contacts.set(851826000000111540, cnt851826000000111540);
 var cnt851826000000111541 = new Contact("DUTOIT","Antony","M. Antony DUTOIT","antoaucanada@hotmail.com",{name:"Létang & Associés", id:"851826000000088830"},{name:"en Mouvement Centre-Ville", id:"851826000000064003"},"",[],"851826000000111541");
 contacts.set(851826000000111541, cnt851826000000111541);
-var cnt851826000000111544 = new Contact("BORY","Cécile","Mme Cécile BORY","librairiegeorges@wanadoo.fr",{name:"Librairie Georges Et Association des commerçants, artisans et professions libérales 'Au coeur de Talence'", id:"851826000000111299"},{name:"en Mouvement Centre-Ville", id:"851826000000064003"},"",[],"851826000000111544");
+var cnt851826000000111544 = new Contact("BORY","Cécile","Mme Cécile BORY","librairiegeorges@wanadoo.fr",{name:"ISIS - Istituto di Studiper l'Integrazione dei Sistemi", id:"851826000000111299"},{name:"en Mouvement Centre-Ville", id:"851826000000064003"},"",[],"851826000000111544");
 contacts.set(851826000000111544, cnt851826000000111544);
 var cnt851826000000501047 = new Contact("Service comptable","","Service comptable","null",{name:"CCI de la Rochelle", id:"851826000000088725"},{name:"Gwenaëlle Airiau", id:"851826000000064011"},"",[],"851826000000501047");
 contacts.set(851826000000501047, cnt851826000000501047);

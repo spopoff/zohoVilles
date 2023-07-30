@@ -72,16 +72,16 @@ function getLink(obj, td){
         const val = obj[key];
         if(key === "accountId"){
             found = true;
-            xe.text = " link to Person ";
+            xe.text = " link to Account ";
             xe.id = val;
             xe.href = "#pka="+val;
         }else if(key === "contactId"){
-            xe.text = " link to User ";
+            xe.text = " link to Contact ";
             xe.id = val;
             xe.href = "#pka="+val;
             found = true;
         }else if(key === "leadId"){
-            xe.text = " link to User ";
+            xe.text = " link to Lead ";
             xe.id = val;
             xe.href = "#pkl="+val;
             found = true;
@@ -94,7 +94,7 @@ function getLink(obj, td){
 /**
  * Ajoute une ligne par Job dans le tableau
  * @param {htmlDom} tab 
- * @param {ECjob} unJ
+ * @param {KalitestResult} unK
  * @returns {undefined}
  */
 function printRowKali(tab, unK){
@@ -119,13 +119,13 @@ function printRowKali(tab, unK){
 function getKaliTest(kaliName, filter){
     var tab = headListKali();
     var nbK = 0;
-    var sel = []
+    var sel = [];
     zohokali.forEach(function(unK){
         if(kaliName === unK.name && filter === "ALL"){
-            sel.push(unK)
+            sel.push(unK);
             nbK++;
         }else if(kaliName === unK.name && filter === unK.qualState){
-            sel.push(unK)
+            sel.push(unK);
             nbK++;
         }
     });
