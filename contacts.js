@@ -8515,7 +8515,7 @@ var cnt851826000020439146 = new Contact("DI VITA","Salvatore","M. Salvatore DI V
 contacts.set(851826000020439146, cnt851826000020439146);
 var cnt851826000036272691 = new Contact("Moysan","Muriel","Muriel Moysan","muriel.moysan@clissonsevremaine.fr",{name:"CA Clisson Sèvre Maine Agglo", id:"851826000036272688"},{name:"en Mouvement Centre-Ville", id:"851826000000064003"},"",[],"851826000036272691");
 contacts.set(851826000036272691, cnt851826000036272691);
-var cnt851826000000111504 = new Contact("RICCI","Andrea","M. Andrea RICCI","aricci@isis-it.com",{name:"ISIS - Istituto di Studiper l'Integrazione dei Sistemi"", id:"851826000000111265"},{name:"en Mouvement Centre-Ville", id:"851826000000064003"},"",[],"851826000000111504");
+var cnt851826000000111504 = new Contact("RICCI","Andrea","M. Andrea RICCI","aricci@isis-it.com",{name:"ISIS - Istituto di Studiper l'Integrazione dei Sistemi", id:"851826000000111265"},{name:"en Mouvement Centre-Ville", id:"851826000000064003"},"",[],"851826000000111504");
 contacts.set(851826000000111504, cnt851826000000111504);
 var cnt851826000000111505 = new Contact("ASSMUS","Andres","M. Andres ASSMUS","europebusinessservices@gmail.com",{name:"IT-Green Group", id:"851826000000111266"},{name:"en Mouvement Centre-Ville", id:"851826000000064003"},"",[],"851826000000111505");
 contacts.set(851826000000111505, cnt851826000000111505);
