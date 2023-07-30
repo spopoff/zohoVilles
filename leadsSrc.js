@@ -90,10 +90,12 @@ function headTabLead(){
 }
 function getLeadInfo(id){
     clearTablos();
-    const lead = leads.get(id);
+    const lead = leads.get(Number(id));
     if(lead !== undefined){
         var tab = headTabLead();
         rowTabLead(tab, lead);
+        var div = document.getElementById("tablo");
+        div.appendChild(tab);
     }
 }
 function getReportLead(isFile){
