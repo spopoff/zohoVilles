@@ -1,5 +1,5 @@
 /* 
-Copyright Stéphane Georges Popoff, (juillet 2009 - juillet 2023)
+Copyright Stéphane Georges Popoff, (juillet 2009 - août 2023)
 
 spopoff@rocketmail.com
 
@@ -125,11 +125,29 @@ function headTabContact(){
     return table;
 }
 
-function getReportContact(isFile){
+function getReportContact(isFile, partInfo){
+    var nbK = 0;
+    var search = false;
+    var parts = [];
+    if(partInfo !== undefined && partInfo !== ""){
+        search = true;
+        partInfo = partInfo.toLowerCase();
+        parts = partInfo.split("|");
+    }
     if(!isFile){
-        var tab = headTabAccount();
-        accounts.forEach(function(account){
-            rowTabAccount(tab, account);
+        var tab = headTabContact();
+        contacts.forEach(function(contact){
+            if(search){
+                parts.forEach(function(part){
+                    if(contact.contient(part.trim())){
+                        rowTabContact(tab, contact);
+                        nbK++;
+                    }
+                });
+            }else{
+                rowTabContact(tab, contact);
+                nbK++;
+            }
         });
     }else{
         text = "lastName,firstName,fullName,email,accountName,owner,memberReseau,tags,id\n";
@@ -140,11 +158,14 @@ function getReportContact(isFile){
         });
         text += "\n";
     }
+    setInfoTab(tableRes, "contacts nb="+nbK)
     var div = document.getElementById("tablo");
     div.appendChild(tab);
     return;
 }
 
 function showReportContact(){
-    getReportContact(false);
+    clearTablos();
+    var ine = document.getElementById("contactSearch").value;
+    getReportContact(false, ine);
 }

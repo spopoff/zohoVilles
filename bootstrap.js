@@ -1,5 +1,5 @@
 /*
-Copyright Stéphane Georges Popoff, (juillet 2009 - juillet 2023)
+Copyright Stéphane Georges Popoff, (juillet 2009 - août 2023)
 
 spopoff@rocketmail.com
 
@@ -46,8 +46,10 @@ var zohoId = "";
 var zohoCd = "";
 var zohokali = [];
 var leads = [];
+var simLeads = [];
 var contacts = [];
 var accounts = [];
+const zohoCVM = "https://crm.zoho.com/crm/org26538990/";
 
 class DataChart{
     constructor(code, type, label){
@@ -76,26 +78,50 @@ class DataSet{
 }
 class Lead{
     constructor(First_Name, Last_Name, Email, Company, Tag, id){
-        this.First_Name =  First_Name;
-        this.Last_Name =  Last_Name;
-        this.Email =  Email;
-        this.Company =  Company;
-        this.Tag =  Tag;
+        this.First_Name = First_Name;
+        this.Last_Name = Last_Name;
+        this.Email = Email;
+        this.Company = Company;
+        this.Tag = Tag;
         this.id = id;
+        this.infos = First_Name.toLowerCase() + ' '
+            + Last_Name.toLowerCase() + ' '
+            + Company.toLowerCase() + ' '
+            + Email.toLowerCase();
+        this.infos = cleanAccent(this.infos);
     }
     set addAccount(account){
         this.accounts.push(account);
         account.addLead = this;
     }
 }
+Lead.prototype.contient = function(ine){
+    if(this.infos.includes(ine)){
+        return true;
+    }
+    return false;
+};
 class Account{
     constructor(Account_Name, Phone, Parent_Account, Reseau, Account_Type, id){
-        this.Account_Name =  Account_Name;
+        this.Account_Name = Account_Name;
         this.Phone =  Phone;
-        this.Parent_Account =  Parent_Account;
-        this.Reseau =  Reseau;
-        this.Account_Type =  Account_Type;
+        this.Parent_Account = Parent_Account;
+        this.Reseau = Reseau;
+        this.Account_Type = Account_Type;
         this.id = id;
+        this.infos = Account_Name.toLowerCase() + ' '
+            + Account_Type.toLowerCase();
+        var rez = '';
+        if(Reseau !== undefined){
+            Reseau.forEach(function(rezo){
+                rez += ' ' + rezo.name.toLowerCase();
+            });
+        }
+        this.infos += rez;
+        if(Parent_Account !== undefined){
+            this.infos += ' ' + Parent_Account.name;
+        }
+        this.infos = cleanAccent(this.infos);
     }
     set addLead(lead){
         this.leads.push(lead);
@@ -106,6 +132,12 @@ class Account{
         contact.addAccount = this;
     }
 }
+Account.prototype.contient = function(ine){
+    if(this.infos.includes(ine)){
+        return true;
+    }
+    return false;
+};
 class Contact{
     constructor(Last_Name,First_Name,Full_Name,Email,Account_Name,Owner,Membre_du_R_seau,Tag,id){
         this.Last_Name =  Last_Name;
@@ -117,11 +149,53 @@ class Contact{
         this.Membre_du_R_seau =  Membre_du_R_seau;
         this.Tag =  Tag;
         this.id = id;
+        this.infos = First_Name.toLowerCase() + ' '
+            + Last_Name.toLowerCase() + ' '
+            + Full_Name.toLowerCase() + ' '
+            + Email.toLowerCase() + ' '
+            + Membre_du_R_seau + ' ';
+        if(Account_Name !== undefined){
+            this.infos += Account_Name.name + ' ';
+        }
+        if(Owner !== undefined){
+            this.infos += Owner.name + ' ';
+        }
+        this.infos = cleanAccent(this.infos);
     }
     set addAccount(account){
         this.accounts.push(account);
         account.addContact = this;
     }
+}
+Contact.prototype.contient = function(ine){
+    if(this.infos.includes(ine)){
+        return true;
+    }
+    return false;
+};
+
+class SimLead{
+    constructor(First_Name1, Last_Name1, id1, First_Name2, Last_Name2, id2){
+        this.First_Name1 = First_Name1;
+        this.Last_Name1 = Last_Name1;
+        this.id1 = id1;
+        this.First_Name2 = First_Name2;
+        this.Last_Name2 = Last_Name2;
+        this.id2 = id2;
+    }
+};
+
+function cleanAccent(thisinfos){
+        thisinfos = thisinfos.replaceAll('é', 'e');
+        thisinfos = thisinfos.replaceAll('à', 'a');
+        thisinfos = thisinfos.replaceAll('è', 'e');
+        thisinfos = thisinfos.replaceAll('ê', 'e');
+        thisinfos = thisinfos.replaceAll('ë', 'e');
+        thisinfos = thisinfos.replaceAll('û', 'u');
+        thisinfos = thisinfos.replaceAll('ù', 'u');
+        thisinfos = thisinfos.replaceAll('ô', 'o');
+        thisinfos = thisinfos.replaceAll('î', 'i');
+        return thisinfos;
 }
 var color = Chart.helpers.color;
 var chartSeul = {};
@@ -156,8 +230,9 @@ function openTab(evt, tabName) {
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
     $("hr").show();
-    var div = document.getElementById("tablo");
-    div.innerHTML = '';
+    clearTablos();
+//    var div = document.getElementById("tablo");
+//    div.innerHTML = '';
 }
 function getQueryString(href){
     var result = {};

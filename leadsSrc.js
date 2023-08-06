@@ -1,5 +1,5 @@
 /* 
-Copyright Stéphane Georges Popoff, (juillet 2009 - juillet 2023)
+Copyright Stéphane Georges Popoff, (juillet 2009 - août 2023)
 
 spopoff@rocketmail.com
 
@@ -32,6 +32,37 @@ Le fait que vous puissiez accéder à cet en-tête signifie que vous avez
 pris connaissance de la licence [CeCILL|CeCILL-B|CeCILL-C], et que vous en avez accepté les
 termes.
  */
+function rowTabSimilarLead(table, leadSim){
+    var tr = document.createElement('tr'); 
+    var tha = document.createElement('td');
+    const x1 = document.createElement("A");
+    x1.text = leadSim.First_Name1;
+    x1.id = leadSim.id1;
+    x1.href = zohoCVM+"tab/Leads/"+leadSim.id1;
+    x1.target = "_blank";
+//    var txha = document.createTextNode(x1);
+//    tha.appendChild(txha)
+    tha.appendChild(x1);
+    tr.appendChild(tha);
+    var ths = document.createElement('td');
+    var txhs = document.createTextNode(leadSim.Last_Name1);
+    ths.appendChild(txhs);
+    tr.appendChild(ths);
+    var tha2 = document.createElement('td');
+    const x2 = document.createElement("A");
+    x2.text = leadSim.First_Name2;
+    x2.id = leadSim.id2;
+    x2.href = zohoCVM+"tab/Leads/"+leadSim.id2;
+    x2.target = "_blank";
+//    var txha2 = document.createTextNode(x2);
+    tha2.appendChild(x2);
+    tr.appendChild(tha2);
+    var ths2 = document.createElement('td');
+    var txhs2 = document.createTextNode(leadSim.Last_Name2);
+    ths2.appendChild(txhs2);
+    tr.appendChild(ths2);
+    table.appendChild(tr);
+}
 function rowTabLead(table, lead){
     var tr = document.createElement('tr'); 
     var thi = document.createElement('td');
@@ -59,6 +90,29 @@ function rowTabLead(table, lead){
     tht.appendChild(txht);
     tr.appendChild(tht);
     table.appendChild(tr);
+}
+
+function headTabSimilarLead(){
+    var table = document.createElement('table');
+    var tr = document.createElement('tr'); 
+    var tha = document.createElement('th');
+    var txha = document.createTextNode('First Name 1');
+    tha.appendChild(txha);
+    tr.appendChild(tha);
+    var ths = document.createElement('th');
+    var txhs = document.createTextNode('Last Name 1');
+    ths.appendChild(txhs);
+    tr.appendChild(ths);
+    var tha2 = document.createElement('th');
+    var txha2 = document.createTextNode('First Name 2');
+    tha2.appendChild(txha2);
+    tr.appendChild(tha2);
+    var ths2 = document.createElement('th');
+    var txhs2 = document.createTextNode('Last Name 2');
+    ths2.appendChild(txhs2);
+    tr.appendChild(ths2);
+    table.appendChild(tr);
+    return table;
 }
 
 
@@ -103,13 +157,37 @@ function getLeadInfo(id){
         div.appendChild(tab);
     }
 }
-function getReportLead(isFile){
+function getSimilarLeads(){
+    var tab = headTabSimilarLead();
     var nbK = 0;
+    simLeads.forEach(function(leadSim){
+        rowTabSimilarLead(tab, leadSim);
+        nbK++;
+    });
+    setInfoTab(tableRes, "leads similar nb="+nbK);
+    var div = document.getElementById("tablo");
+    div.appendChild(tab);
+    return;
+}
+function getReportLead(isFile, partInfo){
+    var nbK = 0;
+    var search = false;
+    if(partInfo !== undefined && partInfo !== ""){
+        search = true;
+        partInfo = partInfo.toLowerCase();
+    }
     if(!isFile){
         var tab = headTabLead();
         leads.forEach(function(lead){
-            rowTabLead(tab, lead);
-            nbK++;
+            if(search){
+                if(lead.contient(partInfo)){
+                    rowTabLead(tab, lead);
+                    nbK++;
+                }
+            }else{
+                rowTabLead(tab, lead);
+                nbK++;
+            }
         });
     }else{
         text = "email;firstName;lastName;company;tag;id\n";
@@ -120,7 +198,7 @@ function getReportLead(isFile){
         });
         text += "\n";
     }
-    setInfoTab(tableRes, "nb case="+nbK);
+    setInfoTab(tableRes, "leads nb="+nbK);
     var div = document.getElementById("tablo");
     div.appendChild(tab);
     return;
@@ -128,5 +206,10 @@ function getReportLead(isFile){
 
 function showReportLead(){
     clearTablos();
-    getReportLead(false);
+    var ine = document.getElementById("leadSearch").value;
+    getReportLead(false, ine);
+}
+function showSimilarLead(){
+    clearTablos();
+    getSimilarLeads();
 }

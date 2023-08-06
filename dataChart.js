@@ -243,16 +243,86 @@ function getData(objGF){
             objGF.addDataset = ids;
         break;
         case "2_2":
-            //Nb First level hierarchy by Labels
-            var ids = new DataSet("nbLev1");
-            lbls.forEach(function(lbl){
-                objGF.addLabel = lbl.name;
-                var lev1 = getItemLevelX(false);
-                ids.addData = lev1.filter(function(l){return l.oidLbl === lbl.oid;}).length;
+            //nb leads per tags
+            var ids = new DataSet("nbTags");
+            var tags = new Map();
+            leads.forEach(function(lid){
+                lid.Tag.forEach(function(tag){
+                    var inc = tags.get(tag.name);
+                    if(inc === undefined){
+                        tags.set(tag.name, 1);
+                    }else{
+                        inc++;
+                        tags.set(tag.name, inc);
+                    }
+                });
+            });
+            tags.forEach(function(value, key, map){
+                objGF.addLabel = key;
+                ids.addData = value;
             });
             objGF.addDataset = ids;
         break;
         case "2_3":
+            //nb account per type
+            var ids = new DataSet("nbAccountType");
+            var tags = new Map();
+            accounts.forEach(function(accnt){
+                var inc = tags.get(accnt.Account_Type);
+                if(inc === undefined){
+                    tags.set(accnt.Account_Type, 1);
+                }else{
+                    inc++;
+                    tags.set(accnt.Account_Type, inc);
+                }
+            });
+            tags.forEach(function(value, key, map){
+                objGF.addLabel = key;
+                ids.addData = value;
+            });
+            objGF.addDataset = ids;
+        break;
+        case "2_4":
+            //nb account per reseau
+            var ids = new DataSet("nbReseau");
+            var tags = new Map();
+            accounts.forEach(function(accnt){
+                accnt.Reseau.forEach(function(tag){
+                    var inc = tags.get(tag.name);
+                    if(inc === undefined){
+                        tags.set(tag.name, 1);
+                    }else{
+                        inc++;
+                        tags.set(tag.name, inc);
+                    }
+                });
+            });
+            tags.forEach(function(value, key, map){
+                objGF.addLabel = key;
+                ids.addData = value;
+            });
+            objGF.addDataset = ids;
+        break;
+        case "2_5":
+            //nb account per type
+            var ids = new DataSet("nbType");
+            var types = new Map();
+            accounts.forEach(function(accnt){
+                    var inc = types.get(accnt.Account_Type);
+                    if(inc === undefined){
+                        types.set(accnt.Account_Type, 1);
+                    }else{
+                        inc++;
+                        types.set(accnt.Account_Type, inc);
+                    }
+            });
+            types.forEach(function(value, key, map){
+                objGF.addLabel = key;
+                ids.addData = value;
+            });
+            objGF.addDataset = ids;
+        break;
+        case "2_9":
             //Nb First and second level hierarchy by Labels
             var ids = new DataSet("nbLev12");
             lbls.forEach(function(lbl){

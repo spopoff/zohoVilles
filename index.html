@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-Copyright Stéphane Georges Popoff, (juillet 2009 - juillet 2023)
+Copyright Stéphane Georges Popoff, (juillet 2009 - août 2023)
 
 spopoff@rocketmail.com
 
@@ -53,6 +53,7 @@ termes.
         <script src='contacts.js'></script>
         <script src='kalitest.js'></script>
         <script src='leadsKali.js'></script>
+        <script src='leadsSim.js'></script>
         <link rel='stylesheet' type='text/css' href='style.css'/>
     </head>
     <body>
@@ -69,6 +70,7 @@ termes.
                 <label for="kali">Data Quality Test:</label>&nbsp;<select id="kali" class="orgas2" name="lesKali">
                     <option value="kali1">Legal Leads Categories</option>
                     <option value="kali2">Leads Email</option>
+                    <option value="kali3">Leads Email in Full Name</option>
                 </select>&nbsp;&nbsp;
                 <label for="kaliState">State filter:</label>&nbsp;<select id="kaliState" class="orgas2" name="lesKaliState">
                     <option value="ALL" selected>All States</option>
@@ -79,17 +81,24 @@ termes.
                 <button onclick="showKaliTest()">Show test !</button>
 		</div>
         <div id="Leads" class="tabcontent">
-            <button onclick="showReportLead()">report Leads !</button>&nbsp;&nbsp;
+            <label for="leadSearch">Found as:</label><input type="text" id="leadSearch"/>&nbsp;&nbsp;
+            <button onclick="showReportLead()">report Leads !</button><br>
+            <button onclick="showSimilarLead()">report Leads Similar!</button>
         </div>
         <div id="Accounts" class="tabcontent">
-            <button onclick="showReportAccount()">report Accounts !</button>&nbsp;&nbsp;
+            <label for="accountSearch">Found as:</label><input type="text" id="accountSearch"/>&nbsp;&nbsp;
+            <button onclick="showReportAccount()">report Accounts !</button>
         </div>
         <div id="Contacts" class="tabcontent">
+            <label for="contactSearch">Found as:</label><input type="text" id="contactSearch"/>&nbsp;&nbsp;
             <button onclick="showReportContact()">report Contacts !</button>&nbsp;&nbsp;
         </div>
         <div id="Graphics" class="tabcontent500">
             <label for="graf">Select Metric:&nbsp;</label><select id="grafs" class="orgas2" name="lesGrafs">
                     <option value="2_1">Nb of Datas</option>
+                    <option value="2_2">Leads by Tags</option>
+                    <option value="2_3">Accounts by Type</option>
+                    <option value="2_4">Accounts by Reseau</option>
             </select>
             &nbsp;&nbsp;<button onclick="showGraph()">Show Graphic !</button><br/>
             <div id="container1" class="boite">
