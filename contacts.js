@@ -13488,6 +13488,8 @@ var cnt851826000051309200 = new Contact("Tang","Jianing","Jianing Tang","jianing
 contacts.push(cnt851826000051309200);
 var cnt851826000048393412 = new Contact("Bertier","Erric","Erric Bertier","e.bertier@ville-vaucresson.fr",{name:"Ville de Vaucresson", id:"851826000037386203"},{name:"en Mouvement Centre-Ville", id:"851826000000064003"},"",[],"851826000048393412");
 contacts.push(cnt851826000048393412);
+var cnt851826000000956183 = new Contact("BATTAULT","Françoise","Mme Françoise BATTAULT","francoise.battault@nimes-metropole.fr",{name:"Nîmes Métropole", id:"851826000000882049"},{name:"en Mouvement Centre-Ville", id:"851826000000064003"},"",[],"851826000000956183");
+contacts.push(cnt851826000000956183);
 var cnt851826000017311065 = new Contact("LE TOULLEC","ANNICK","ANNICK LE TOULLEC","annick.letoullec@ville-port.re",{name:"Ville du Port", id:"851826000053875184"},{name:"en Mouvement Centre-Ville", id:"851826000000064003"},"",[],"851826000017311065");
 contacts.push(cnt851826000017311065);
 var cnt851826000020423055 = new Contact("GOMEZ-NAL","Alexandra","Mme Alexandra GOMEZ-NAL","a.gomez@salon-de-provence.org",{name:"Ville de Salon-de-Provence", id:"851826000050432842"},{name:"en Mouvement Centre-Ville", id:"851826000000064003"},"Membre",[],"851826000020423055");

@@ -47,6 +47,7 @@ var zohoCd = "";
 var zohokali = [];
 var leads = [];
 var simLeads = [];
+var simContacts = [];
 var contacts = [];
 var accounts = [];
 const zohoCVM = "https://crm.zoho.com/crm/org26538990/";
@@ -188,6 +189,23 @@ class SimLead{
     }
 };
 SimLead.prototype.contient = function(ine){
+    if(this.infos.includes(ine)){
+        return true;
+    }
+    return false;
+};
+class SimContact{
+    constructor(Full_Name1, id1, Full_Name2, id2){
+        this.Full_Name1 = Full_Name1;
+        this.id1 = id1;
+        this.Full_Name2 = Full_Name2;
+        this.id2 = id2;
+        this.infos = Full_Name1 + ' '+Full_Name2;
+        this.infos = this.infos.toLowerCase();
+        this.infos = cleanAccent(this.infos);
+    }
+};
+SimContact.prototype.contient = function(ine){
     if(this.infos.includes(ine)){
         return true;
     }
