@@ -232,6 +232,6 @@ function showReportContact(){
 }
 function showSimilarContact(){
     clearTablos();
-    var ine = document.getElementById("leadSearch").value;
+    var ine = document.getElementById("contactSearch").value;
     getSimilarContacts(ine);
 }
