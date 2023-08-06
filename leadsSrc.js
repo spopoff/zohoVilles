@@ -68,7 +68,7 @@ function rowTabLead(table, lead){
     var thi = document.createElement('td');
     const x1 = document.createElement("A");
     x1.text = lead.Email;
-    x1.id = leadSim.id1;
+    x1.id = lead.id;
     x1.href = zohoCVM+"tab/Leads/"+lead.id;
     x1.target = "_blank";
     thi.appendChild(x1);
