@@ -66,8 +66,12 @@ function rowTabSimilarLead(table, leadSim){
 function rowTabLead(table, lead){
     var tr = document.createElement('tr'); 
     var thi = document.createElement('td');
-    var txhi = document.createTextNode(lead.Email);
-    thi.appendChild(txhi);
+    const x1 = document.createElement("A");
+    x1.text = lead.Email;
+    x1.id = leadSim.id1;
+    x1.href = zohoCVM+"tab/Leads/"+lead.id;
+    x1.target = "_blank";
+    thi.appendChild(x1);
     tr.appendChild(thi);
     var tha = document.createElement('td');
     var txha = document.createTextNode(lead.First_Name);
