@@ -35,6 +35,29 @@ termes.
 /* global accounts */
 
 //Last_Name,First_Name,Full_Name,Email,Account_Name,Owner,Membre_du_R_seau,Tag,id
+function rowTabSimilarContact(table, contactSim){
+    var tr = document.createElement('tr'); 
+    var tha = document.createElement('td');
+    const x1 = document.createElement("A");
+    x1.text = contactSim.Full_Name1;
+    x1.id = contactSim.id1;
+    x1.href = zohoCVM+"tab/Contacts/"+contactSim.id1;
+    x1.target = "_blank";
+//    var txha = document.createTextNode(x1);
+//    tha.appendChild(txha)
+    tha.appendChild(x1);
+    tr.appendChild(tha);
+    var tha2 = document.createElement('td');
+    const x2 = document.createElement("A");
+    x2.text = contactSim.Full_Name2;
+    x2.id = contactSim.id2;
+    x2.href = zohoCVM+"tab/Contacts/"+contactSim.id2;
+    x2.target = "_blank";
+//    var txha2 = document.createTextNode(x2);
+    tha2.appendChild(x2);
+    tr.appendChild(tha2);
+    table.appendChild(tr);
+}
 
 function rowTabContact(table, cntc){
     var tr = document.createElement('tr'); 
@@ -84,6 +107,20 @@ function rowTabContact(table, cntc){
     tr.appendChild(thg);
     table.appendChild(tr);
 }
+function headTabSimilarContact(){
+    var table = document.createElement('table');
+    var tr = document.createElement('tr'); 
+    var tha = document.createElement('th');
+    var txha = document.createTextNode('Full Name 1');
+    tha.appendChild(txha);
+    tr.appendChild(tha);
+    var tha2 = document.createElement('th');
+    var txha2 = document.createTextNode('Full Name 2');
+    tha2.appendChild(txha2);
+    tr.appendChild(tha2);
+    table.appendChild(tr);
+    return table;
+}
 
 //Last_Name,First_Name,Full_Name,Email,Account_Name,Owner,Membre_du_R_seau,Tag,id
 function headTabContact(){
@@ -123,6 +160,30 @@ function headTabContact(){
     tr.appendChild(thg);
     table.appendChild(tr);
     return table;
+}
+function getSimilarContacts(partInfo){
+    var tab = headTabSimilarContact();
+    var nbK = 0;
+    var search = false;
+    if(partInfo !== undefined && partInfo !== ""){
+        search = true;
+        partInfo = partInfo.toLowerCase();
+    }
+    simContacts.forEach(function(contactSim){
+        if(search){
+            if(contactSim.contient(partInfo)){
+                rowTabSimilarContact(tab, contactSim);
+                nbK++;
+            }
+        }else{
+            rowTabSimilarContact(tab, contactSim);
+            nbK++;
+        }
+    });
+    setInfoTab(tableRes, "contacts similar nb="+nbK);
+    var div = document.getElementById("tablo");
+    div.appendChild(tab);
+    return;
 }
 
 function getReportContact(isFile, partInfo){
@@ -168,4 +229,9 @@ function showReportContact(){
     clearTablos();
     var ine = document.getElementById("contactSearch").value;
     getReportContact(false, ine);
+}
+function showSimilarContact(){
+    clearTablos();
+    var ine = document.getElementById("leadSearch").value;
+    getSimilarContact(ine);
 }

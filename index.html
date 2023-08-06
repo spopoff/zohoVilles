@@ -73,7 +73,7 @@ termes.
                     <option value="kali1">Legal Leads Categories</option>
                     <option value="kali2">Leads Email</option>
                     <option value="kali3">Leads Email in Full Name</option>
-                    <option value="kali2">Contacts Email</option>
+                    <option value="kali4">Contacts Email</option>
                 </select>&nbsp;&nbsp;
                 <label for="kaliState">State filter:</label>&nbsp;<select id="kaliState" class="orgas2" name="lesKaliState">
                     <option value="ALL" selected>All States</option>
@@ -85,16 +85,17 @@ termes.
 		</div>
         <div id="Leads" class="tabcontent">
             <label for="leadSearch">Found as:</label><input type="text" id="leadSearch"/>&nbsp;&nbsp;
-            <button onclick="showReportLead()">report Leads !</button><br>
+            <button onclick="showReportLead()">report Leads !</button>&nbsp;&nbsp;
             <button onclick="showSimilarLead()">report Leads Similar!</button>
         </div>
         <div id="Accounts" class="tabcontent">
             <label for="accountSearch">Found as:</label><input type="text" id="accountSearch"/>&nbsp;&nbsp;
-            <button onclick="showReportAccount()">report Accounts !</button>
+            <button onclick="showReportAccount()">report Accounts !</button>&nbsp;&nbsp;
         </div>
         <div id="Contacts" class="tabcontent">
             <label for="contactSearch">Found as:</label><input type="text" id="contactSearch"/>&nbsp;&nbsp;
             <button onclick="showReportContact()">report Contacts !</button>&nbsp;&nbsp;
+            <button onclick="showSimilarContact()">report Contacts Similar!</button>
         </div>
         <div id="Graphics" class="tabcontent500">
             <label for="graf">Select Metric:&nbsp;</label><select id="grafs" class="orgas2" name="lesGrafs">
