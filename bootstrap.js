@@ -183,6 +183,8 @@ class SimLead{
         this.Last_Name2 = Last_Name2;
         this.id2 = id2;
         this.infos = First_Name1 + ' '+Last_Name1+' '+First_Name2 + ' '+Last_Name2;
+        this.infos = this.infos.toLowerCase();
+        this.infos = cleanAccent(this.infos);
     }
 };
 SimLead.prototype.contient = function(ine){
