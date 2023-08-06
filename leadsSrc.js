@@ -161,12 +161,24 @@ function getLeadInfo(id){
         div.appendChild(tab);
     }
 }
-function getSimilarLeads(){
+function getSimilarLeads(partInfo){
     var tab = headTabSimilarLead();
     var nbK = 0;
+    var search = false;
+    if(partInfo !== undefined && partInfo !== ""){
+        search = true;
+        partInfo = partInfo.toLowerCase();
+    }
     simLeads.forEach(function(leadSim){
-        rowTabSimilarLead(tab, leadSim);
-        nbK++;
+        if(search){
+            if(leadSim.contient(partInfo)){
+                rowTabSimilarLead(tab, leadSim);
+                nbK++;
+            }
+        }else{
+            rowTabSimilarLead(tab, leadSim);
+            nbK++;
+        }
     });
     setInfoTab(tableRes, "leads similar nb="+nbK);
     var div = document.getElementById("tablo");
@@ -215,5 +227,6 @@ function showReportLead(){
 }
 function showSimilarLead(){
     clearTablos();
-    getSimilarLeads();
+    var ine = document.getElementById("leadSearch").value;
+    getSimilarLeads(ine);
 }
