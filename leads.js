@@ -1690,6 +1690,8 @@ var lid851826000044330001 = new Lead("Sana","Bottini","sana.bottini@marie-caussa
 leads.push(lid851826000044330001);
 var lid851826000049297011 = new Lead("anne-marie","twardo","am.twardo@mairie-pessac.fr","ville de PESSAC",[],"851826000049297011");
 leads.push(lid851826000049297011);
+var lid851826000054970001 = new Lead("CAMILLE","BOURIANE","bouriane.camille@sarlat.fr","Mairie de Sarlat",[{name:"2e EG", id:"851826000052005007"}],"851826000054970001");
+leads.push(lid851826000054970001);
 var lid851826000029130007 = new Lead("Christophe","Fehring","christophe.fehring@orange.fr","Sarl Fehring",[],"851826000029130007");
 leads.push(lid851826000029130007);
 var lid851826000049180094 = new Lead("Sandra","CISTERNE","scisterne@bordeauxgironde.cci.fr","CCI Bordeaux Gironde",[],"851826000049180094");
