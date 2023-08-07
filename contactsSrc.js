@@ -199,8 +199,8 @@ function getReportContact(isFile, partInfo){
         var tab = headTabContact();
         contacts.forEach(function(contact){
             if(search){
-                parts.forEach(function(part){
-                    if(contact.contient(part.trim())){
+                $.each(parts, function(index, value){
+                    if(contact.contient(value.trim())){
                         rowTabContact(tab, contact);
                         nbK++;
                     }
@@ -219,7 +219,7 @@ function getReportContact(isFile, partInfo){
         });
         text += "\n";
     }
-    setInfoTab(tableRes, "contacts nb="+nbK)
+    setInfoTab(tableRes, "contacts nb="+nbK);
     var div = document.getElementById("tablo");
     div.appendChild(tab);
     return;
