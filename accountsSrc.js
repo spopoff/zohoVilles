@@ -33,6 +33,35 @@ pris connaissance de la licence [CeCILL|CeCILL-B|CeCILL-C], et que vous en avez 
 termes.
  */
 /* global accounts */
+function rowTabContactsAccount(table, accnt){
+    var tr = document.createElement('tr'); 
+    var thi = document.createElement('td');
+    var txhi = document.createTextNode(accnt.Account_Name);
+    thi.appendChild(txhi);
+    tr.appendChild(thi);
+    table.appendChild(tr);
+    var tr2 = document.createElement('tr'); 
+    var tha = document.createElement('td');
+    if(accnt.contacts.length > 0){
+        //boucle contacts
+        accnt.contacts.forEach(function(cnt){
+            const x1 = document.createElement("A");
+            x1.text = cnt.Full_Name;
+            x1.id = cnt.id;
+            x1.href = zohoCVM+"tab/Contacts/"+cnt.id;
+            x1.target = "_blank";
+            tha.appendChild(x1);
+            var txha = document.createTextNode(", ");
+            tha.appendChild(txha);
+        });
+    }else{
+        var txha = document.createTextNode("None");
+        tha.style.textAlign = "center";
+        tha.appendChild(txha);
+    }
+    tr2.appendChild(tha);
+    table.appendChild(tr2);
+}
 
 function rowTabAccount(table, accnt){
     var tr = document.createElement('tr'); 
@@ -71,7 +100,16 @@ function rowTabAccount(table, accnt){
     table.appendChild(tr);
 }
 
-
+function headTabContactsAccount(){
+    var table = document.createElement('table');
+    var tr = document.createElement('tr'); 
+    var thi = document.createElement('th');
+    var txhi = document.createTextNode('Account_Name & Contacts');
+    thi.appendChild(txhi);
+    tr.appendChild(thi);
+    table.appendChild(tr);
+    return table;
+}
 function headTabAccount(){
     var table = document.createElement('table');
     var tr = document.createElement('tr'); 
@@ -97,6 +135,34 @@ function headTabAccount(){
     tr.appendChild(tht);
     table.appendChild(tr);
     return table;
+}
+function getReportContactsAccount(partInfo){
+    var nbK = 0;
+    var search = false;
+    var parts = [];
+    if(partInfo !== undefined && partInfo !== ""){
+        search = true;
+        partInfo = partInfo.toLowerCase();
+        parts = partInfo.split("|");
+    }
+    var tab = headTabContactsAccount();
+    accounts.forEach(function(account){
+        if(search){
+            parts.forEach(function(part){
+                if(account.contient(part.trim())){
+                    rowTabContactsAccount(tab, account);
+                    nbK++;
+                }
+            });
+        }else{
+            rowTabContactsAccount(tab, account);
+            nbK++;
+        }
+    });
+    setInfoTab(tableRes, "accounts nb="+nbK);
+    var div = document.getElementById("tablo");
+    div.appendChild(tab);
+    return;
 }
 
 function getReportAccount(isFile, partInfo){
@@ -142,4 +208,9 @@ function showReportAccount(){
     clearTablos();
     var ine = document.getElementById("accountSearch").value;
     getReportAccount(false, ine);
+}
+function showReportContactsAccount(){
+    clearTablos();
+    var ine = document.getElementById("accountSearch").value;
+    getReportContactsAccount(ine);
 }
