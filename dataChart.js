@@ -1,5 +1,5 @@
 /*
-Copyright Stéphane Georges Popoff, (juillet 2009 - octobre 2020)
+Copyright Stéphane Georges Popoff, (juillet 2009 - août 2023)
 
 spopoff@rocketmail.com
 
@@ -114,6 +114,9 @@ function renewGrafic(barChartData, titre, type, ctxId, cntId){
         typeG = "bar";
     }else if(type === 2 || type === 3 || type === 5){
         $('#'+cntId).css({width: '800px',height: '800px'});
+        typeG = "horizontalBar";
+    }else if(type === 8){
+        $('#'+cntId).css({width: '1200px',height: '1200px'});
         typeG = "horizontalBar";
     }else if(type === 6){
         $('#'+cntId).css({width: '800px',height: '800px'});
@@ -304,21 +307,23 @@ function getData(objGF){
             objGF.addDataset = ids;
         break;
         case "2_5":
-            //nb account per type
-            var ids = new DataSet("nbType");
+            //nb contacts per account
+            var ids = new DataSet("nbContact");
             var types = new Map();
             accounts.forEach(function(accnt){
-                    var inc = types.get(accnt.Account_Type);
-                    if(inc === undefined){
-                        types.set(accnt.Account_Type, 1);
-                    }else{
-                        inc++;
-                        types.set(accnt.Account_Type, inc);
+                    var inc = types.get(accnt.Account_Name);
+                    if(inc === undefined && accnt.contacts.length > 0){
+                        types.set(accnt.Account_Name, accnt.contacts.length);
                     }
             });
-            types.forEach(function(value, key, map){
-                objGF.addLabel = key;
-                ids.addData = value;
+            const mapSort1 = new Map([...types.entries()].sort((a, b) => b[1] - a[1]));
+            var inc = 0;
+            mapSort1.forEach(function(value, key, map){
+                if(inc < 10){
+                    objGF.addLabel = key;
+                    ids.addData = value;
+                }
+                inc++;
             });
             objGF.addDataset = ids;
         break;

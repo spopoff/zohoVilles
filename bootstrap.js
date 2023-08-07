@@ -123,14 +123,10 @@ class Account{
             this.infos += ' ' + Parent_Account.name;
         }
         this.infos = cleanAccent(this.infos);
-    }
-    set addLead(lead){
-        this.leads.push(lead);
-        lead.addAccount = this;
+        this.contacts = [];
     }
     set addContact(contact){
         this.contacts.push(contact);
-        contact.addAccount = this;
     }
 }
 Account.prototype.contient = function(ine){
@@ -162,10 +158,6 @@ class Contact{
             this.infos += Owner.name + ' ';
         }
         this.infos = cleanAccent(this.infos);
-    }
-    set addAccount(account){
-        this.accounts.push(account);
-        account.addContact = this;
     }
 }
 Contact.prototype.contient = function(ine){
