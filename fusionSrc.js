@@ -143,7 +143,11 @@ function mutation(prefix, fusion){
 			setInfoTab(tableErr,'Error mutation: ' + response.status+" message="+response.statusText);
 		}
 	}).then(function(res){
-            alert("Save update "+prefix);
+            if(res !== undefined){
+                alert("Save update "+prefix);
+            }else{
+                alert("Send update "+prefix);
+            }
 	})
 	.catch(function(error) {
 		setInfoTab(tableErr,'Error mutation: ' + error.message);
