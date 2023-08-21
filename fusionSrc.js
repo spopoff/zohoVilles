@@ -114,6 +114,7 @@ function fusionWithObject(e){
     var idUpdate = parts[1];
     var idDelete = parts[2];
     console.log("update id="+idUpdate+" delete id="+idDelete+ " prefix="+prefix);
+    $.desti["id"] = idUpdate;
     switch(prefix){
         case "cnt":
           mutation("Contact", $.desti);
