@@ -124,11 +124,19 @@ function fusionWithObject(e){
           break;
     }
 }
+function cleanIt(obj) {
+    var cleaned = JSON.stringify(obj, null, 2);
+
+    return cleaned.replace(/^[\t ]*"[^:\n\r]+(?<!\\)":/gm, function (match) {
+        return match.replace(/"/g, "");
+    });
+}
+
 function mutation(prefix, fusion){
 	var url = spoCVM;
 	var head = new Headers();
 	head.append("Content-Type", "application/json");
-	mut = { query: 'mutation Update'+prefix+' {update'+prefix+'('+prefix.toLowerCase()+': '+JSON.stringify(fusion)+')}'
+	mut = { query: 'mutation Update'+prefix+' {update'+prefix+'('+prefix.toLowerCase()+': '+cleanIt(fusion)+')}'
 	};
 	var param = {
 		method: 'Post',
