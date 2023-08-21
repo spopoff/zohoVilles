@@ -117,10 +117,12 @@ function fusionWithObject(e){
     $.desti["id"] = idUpdate;
     switch(prefix){
         case "cnt":
-          mutation("Contact", $.desti);
+          mutationUpdate("Contact", $.desti);
+          mutationDelete("Contact", idDelete);
           break;
-        case "lif":
-          mutation("Lead", $.desti);
+        case "lid":
+          mutationUpdate("Lead", $.desti);
+          mutationDelete("Lead", idDelete);
           break;
     }
 }
@@ -132,7 +134,7 @@ function cleanIt(obj) {
     });
 }
 
-function mutation(prefix, fusion){
+function mutationUpdate(prefix, fusion){
 	var url = spoCVM;
 	var head = new Headers();
 	head.append("Content-Type", "application/json");
@@ -155,6 +157,36 @@ function mutation(prefix, fusion){
                 alert("Save update "+prefix);
             }else{
                 alert("Send update "+prefix);
+            }
+	})
+	.catch(function(error) {
+		setInfoTab(tableErr,'Error mutation: ' + error.message);
+	});
+	
+}
+function mutationDelete(prefix, id){
+	var url = spoCVM;
+	var head = new Headers();
+	head.append("Content-Type", "application/json");
+	mut = { query: 'mutation Delztz'+prefix+' {delete'+prefix+'( id:"'+id+'")}'
+	};
+	var param = {
+		method: 'Post',
+		headers: head,
+		body: JSON.stringify(mut)
+	};
+	var req = new Request(url,param);
+	fetch(req, param).then(function(response){
+		if(response.ok){
+			return response.clone().json();
+		}else{
+			setInfoTab(tableErr,'Error mutation: ' + response.status+" message="+response.statusText);
+		}
+	}).then(function(res){
+            if(res !== undefined){
+                alert("Save delete "+prefix);
+            }else{
+                alert("Send detete "+prefix);
             }
 	})
 	.catch(function(error) {
