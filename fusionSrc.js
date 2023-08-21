@@ -127,7 +127,6 @@ function mutation(prefix, fusion){
 	var url = spoCVM;
 	var head = new Headers();
 	head.append("Content-Type", "application/json");
-        head.append("Origin", spoCVM);
 	mut = { query: 'mutation {update'+prefix+'('+JSON.stringify(fusion)+')}'
 	};
 	var param = {
