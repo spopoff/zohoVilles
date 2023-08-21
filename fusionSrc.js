@@ -116,10 +116,10 @@ function fusionWithObject(e){
     console.log("update id="+idUpdate+" delete id="+idDelete+ " prefix="+prefix);
     switch(prefix){
         case "cnt":
-          mutation("Contact", $desti);
+          mutation("Contact", $.desti);
           break;
         case "lif":
-          mutation("Lead", $desti);
+          mutation("Lead", $.desti);
           break;
     }
 }
