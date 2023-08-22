@@ -293,3 +293,8 @@ if(!window.HashChangeEvent)(function(){
         lastURL=document.URL;
     });
 }());
+
+document.addEventListener("DOMContentLoaded", () => {
+  simLeads.sort((a, b) => a.id.localCompare(b.id));
+  simContacts.sort((a, b) => a.id.localCompare(b.id));
+});
