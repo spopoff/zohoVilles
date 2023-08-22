@@ -295,6 +295,6 @@ if(!window.HashChangeEvent)(function(){
 }());
 
 document.addEventListener("DOMContentLoaded", () => {
-  simLeads.sort((a, b) => a.id.localCompare(b.id));
-  simContacts.sort((a, b) => a.id.localCompare(b.id));
+  simLeads.sort((a, b) => a.id.localeCompare(b.id));
+  simContacts.sort((a, b) => a.id.localeCompare(b.id));
 });
