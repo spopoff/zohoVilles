@@ -245,7 +245,7 @@ function copyValCase(e){
     inp.value = getStringValObjet(obj);
 }
 
-function getSomeObject(prefix, id){
+function getSomeObjects(prefix, id){
     switch(prefix){
         case "cnt":
             return simContacts.some((sim) => sim.id2 === id);
@@ -256,7 +256,7 @@ function getSomeObject(prefix, id){
     }
 }
 
-function getOneObjects(prefix, id){
+function getOneObject(prefix, id){
     switch(prefix){
         case "cnt":
             return contacts.find((obj) => {
