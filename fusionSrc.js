@@ -256,7 +256,7 @@ function getSomeObject(prefix, id){
     }
 }
 
-function getOneObject(prefix, id){
+function getOneObjects(prefix, id){
     switch(prefix){
         case "cnt":
             return contacts.find((obj) => {
