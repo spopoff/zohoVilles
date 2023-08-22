@@ -244,33 +244,55 @@ function copyValCase(e){
     var inp = document.getElementById('desti'+name);
     inp.value = getStringValObjet(obj);
 }
+
+function getSomeObject(prefix, id){
+    switch(prefix){
+        case "cnt":
+            return simContacts.some((sim) => sim.id2 === id);
+            break;
+        case "lid":
+            return simLeads.some((sim) => sim.id2 === id);
+            break;
+    }
+}
+
 function getOneObject(prefix, id){
     switch(prefix){
-        case "accn":
-            return accounts.find((obj) => {
-                return obj.id === id;
-            });
         case "cnt":
             return contacts.find((obj) => {
                 return obj.id === id;
             });
+            break;
         case "lid":
             return leads.find((obj) => {
                 return obj.id === id;
             });
+            break;
     }
 }
 function compareObjs(prefix, id1, id2){
     var tab = headTabFusion();
-    $objA = getOneObject(prefix, id1);
+    var multi = getSomeObjects(prefix, id2);
     $objB = getOneObject(prefix, id2);
-    rowsTabFusion(tab, $objA, $objB, prefix);
+    var plus = false;
+    if(multi.length === 1){
+        $objA = getOneObject(prefix, id1);
+        rowsTabFusion(tab, $objA, $objB, prefix);
+    }else{
+        plus = true;
+        multi.forEach(function(sim){
+            $objA = getOneObject(prefix, id1);
+            rowsTabFusion(tab, $objA, $objB, prefix);
+        });
+    }
     var div = document.getElementById("tablo");
     div.appendChild(tab);
     //bouton de choix
     div.appendChild(document.createElement('br'));
-    div.appendChild(insertFusionButton("1", id1, id2, prefix));
-    div.appendChild(document.createTextNode( '\u00A0\u00A0' ));
+    if(!plus){
+        div.appendChild(insertFusionButton("1", id1, id2, prefix));
+        div.appendChild(document.createTextNode( '\u00A0\u00A0' ));
+    }
     div.appendChild(insertFusionButton("2", id2, id1, prefix));
 }
 function fusionClick(e){
