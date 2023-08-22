@@ -245,13 +245,23 @@ function copyValCase(e){
     inp.value = getStringValObjet(obj);
 }
 
-function getSomeObjects(prefix, id){
+function isSomeObjects(prefix, id){
     switch(prefix){
         case "cnt":
             return simContacts.some((sim) => sim.id2 === id);
             break;
         case "lid":
             return simLeads.some((sim) => sim.id2 === id);
+            break;
+    }
+}
+function getSomeObjects(prefix, id){
+    switch(prefix){
+        case "cnt":
+            return simContacts.filter((sim) => sim.id2 === id);
+            break;
+        case "lid":
+            return simLeads.filter((sim) => sim.id2 === id);
             break;
     }
 }
@@ -272,15 +282,13 @@ function getOneObject(prefix, id){
 }
 function compareObjs(prefix, id1, id2){
     var tab = headTabFusion();
-    var multi = getSomeObjects(prefix, id2);
+    var plus = isSomeObjects(prefix, id2);
     $objB = getOneObject(prefix, id2);
-    var plus = false;
-    if(multi.length === 1){
+    if(!plus){
         $objA = getOneObject(prefix, id1);
         rowsTabFusion(tab, $objA, $objB, prefix);
     }else{
-        plus = true;
-        multi.forEach(function(sim){
+        getSomeObjects(prefix, id2).forEach(function(sim){
             $objA = getOneObject(prefix, id1);
             rowsTabFusion(tab, $objA, $objB, prefix);
         });
