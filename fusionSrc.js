@@ -101,9 +101,18 @@ function insertInput(name){
 }
 function insertFusionButton(name, idUpdate, idDelete, prefix){
     var feld = document.createElement("input");
-    feld.setAttribute("id",prefix+';'+idUpdate+";"+idDelete);
+    if(idDelete instanceof Array){
+        var idAttr = prefix + ';'+idUpdate;
+        var sep = ";";
+        idDelete.forEach(function(id){
+            idAttr += sep + id;
+        });
+        feld.setAttribute("id",idAttr);
+    }else{
+        feld.setAttribute("id",prefix+';'+idUpdate+";"+idDelete);
+    }
     feld.setAttribute("type", "button");
-    feld.setAttribute("value", "fusion in object "+name);
+    feld.setAttribute("value", name);
     feld.onclick = function(e) { return fusionWithObject(e); };
     return feld;
 }
@@ -112,18 +121,26 @@ function fusionWithObject(e){
     parts = e.currentTarget.id.split(";");
     var prefix = parts[0];
     var idUpdate = parts[1];
-    var idDelete = parts[2];
-    console.log("update id="+idUpdate+" delete id="+idDelete+ " prefix="+prefix);
+    console.log("update id="+idUpdate+ " prefix="+prefix);
     $.desti["id"] = idUpdate;
     switch(prefix){
         case "cnt":
           mutationUpdate("Contact", $.desti);
-          mutationDelete("Contact", idDelete);
           break;
         case "lid":
           mutationUpdate("Lead", $.desti);
-          mutationDelete("Lead", idDelete);
           break;
+    }
+    for(var i = 2; i < parts.length; i++){
+        console.log("delete id="+parts[i]+ " prefix="+prefix);
+        switch(prefix){
+            case "cnt":
+              mutationDelete("Contact", parts[i]);
+              break;
+            case "lid":
+              mutationDelete("Lead", parts[i]);
+              break;
+        }
     }
 }
 function cleanIt(obj) {
@@ -283,13 +300,16 @@ function getOneObject(prefix, id){
 function compareObjs(prefix, id1, id2){
     var tab = headTabFusion();
     var plus = isSomeObjects(prefix, id2);
+    var dels = [];
     $objB = getOneObject(prefix, id2);
     if(!plus){
         $objA = getOneObject(prefix, id1);
+        dels.push(id1);
         rowsTabFusion(tab, $objA, $objB, prefix);
     }else{
         getSomeObjects(prefix, id2).forEach(function(sim){
-            $objA = getOneObject(prefix, id1);
+            $objA = getOneObject(prefix, sim.id1);
+            dels.push(id1);
             rowsTabFusion(tab, $objA, $objB, prefix);
         });
     }
@@ -298,10 +318,12 @@ function compareObjs(prefix, id1, id2){
     //bouton de choix
     div.appendChild(document.createElement('br'));
     if(!plus){
-        div.appendChild(insertFusionButton("1", id1, id2, prefix));
+        div.appendChild(insertFusionButton("fusion in object 1", id1, id2, prefix));
         div.appendChild(document.createTextNode( '\u00A0\u00A0' ));
+        div.appendChild(insertFusionButton("fusion in object 2", id2, id1, prefix));
+    }else{
+        div.appendChild(insertFusionButton("fusion all in object 2", id2, dels, prefix));
     }
-    div.appendChild(insertFusionButton("2", id2, id1, prefix));
 }
 function fusionClick(e){
     $.desti = new Object();
