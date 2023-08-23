@@ -63,11 +63,12 @@ function rowTabSimilarLead(table, leadSim){
     tr.appendChild(ths2);
     var th3 = document.createElement('td');
     const x3 = document.createElement("A");
-    x3.id = 'lid;'+ leadSim.id1+";" +leadSim.id2;
+    var idLink = 'lid;'+ leadSim.id1+";" +leadSim.id2;
+    x3.id = idLink;
     x3.text = "fusion";
-    x3.href = "#";
+    x3.href = "fusion.html#&fk="+idLink;
     x3.target = "_blank";
-    x3.onclick = function(e) { return fusionClick(e); };
+    //x3.onclick = function(e) { return fusionClick(e); };
 //    var txha2 = document.createTextNode(x2);
     th3.appendChild(x3);
     tr.appendChild(th3);
