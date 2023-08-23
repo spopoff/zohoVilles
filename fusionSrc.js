@@ -209,7 +209,7 @@ function mutationUpdate(prefix, fusion){
 		}
 	}).then(function(res){
             if(res !== undefined){
-                setInfoTab(tableRes,'Done '+res.data);
+                setInfoTab(tableRes,'Done '+res.data['update'+prefix]);
             }
 	})
 	.catch(function(error) {
@@ -237,9 +237,7 @@ function mutationDelete(prefix, id){
 		}
 	}).then(function(res){
             if(res !== undefined){
-                alert("Save delete "+prefix);
-            }else{
-                alert("Send detete "+prefix);
+                setInfoTab(tableRes,'Done '+res.data['delete'+prefix]);
             }
 	})
 	.catch(function(error) {
