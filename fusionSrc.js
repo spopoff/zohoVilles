@@ -83,7 +83,7 @@ function rowSelected(tab, id, prefix){
 function selectObject(e){
     var parts = [];
     parts = e.currentTarget.id.split(";");
-    var sel = e.currentTarget.value;
+    var sel = e.currentTarget.checked;
     switch(parts[0]){
         case "cnt":
           simContacts.find((sim) => sim.id1 === parts[1]).selected = sel;
