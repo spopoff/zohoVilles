@@ -179,6 +179,7 @@ class SimLead{
         this.infos = First_Name1 + ' '+Last_Name1+' '+First_Name2 + ' '+Last_Name2;
         this.infos = this.infos.toLowerCase();
         this.infos = cleanAccent(this.infos);
+        this.selected = true;
     }
 };
 SimLead.prototype.contient = function(ine){
@@ -196,6 +197,7 @@ class SimContact{
         this.infos = Full_Name1 + ' '+Full_Name2;
         this.infos = this.infos.toLowerCase();
         this.infos = cleanAccent(this.infos);
+        this.selected = true;
     }
 };
 SimContact.prototype.contient = function(ine){

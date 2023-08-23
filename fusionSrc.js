@@ -63,6 +63,37 @@ function headTabFusion(){
     table.appendChild(tr);
     return table;
 }
+
+function rowSelected(tab, id, prefix){
+    var tr = document.createElement('tr');
+    var td = document.createElement('td');
+    td.colSpan = 5;
+    var tx = document.createTextNode("Item selected for deletion ");
+    td.appendChild(tx);
+    var feld = document.createElement("checkbox");
+    feld.value = true;
+    feld.id = prefix + ';' + id;
+    feld.onclick = function(e) { return selectObject(e); };
+    td.appendChild(feld);
+    tr.appendChild(td);
+    tab.appendChild(tr);
+}
+
+function selectObject(e){
+    var parts = [];
+    parts = e.currentTarget.id.split(";");
+    var sel = e.currentTarget.value;
+    switch(parts[0]){
+        case "cnt":
+          simContacts.find((sim) => sim.id1 === parts[1]).selected = sel;
+          break;
+        case "lid":
+          simLeads.find((sim) => sim.id1 === parts[1]).selected = sel;
+          break;
+    }
+    
+}
+
 function getStringValObjet(obj){
     var value = "";
     var sep = "";
@@ -310,6 +341,7 @@ function compareObjs(prefix, id1, id2){
         getSomeObjects(prefix, id2).forEach(function(sim){
             $objA = getOneObject(prefix, sim.id1);
             dels.push(sim.id1);
+            rowSelected(tab, sim.id1);
             rowsTabFusion(tab, $objA, $objB, prefix);
         });
     }
