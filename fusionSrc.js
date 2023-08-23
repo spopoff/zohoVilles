@@ -154,16 +154,24 @@ function fusionWithObject(e){
     var prefix = parts[0];
     var idUpdate = parts[1];
     console.log("update id="+idUpdate+ " prefix="+prefix);
+    var inc = 0;
+    for(const prop in $.desti){
+        inc++;
+    }
     $.desti["id"] = idUpdate;
     tableInfos(tableRes, "tabloRes", "Infos");
     tableInfos(tableErr, "tabloErr", "Errors");
-    switch(prefix){
-        case "cnt":
-          mutationUpdate("Contact", $.desti);
-          break;
-        case "lid":
-          mutationUpdate("Lead", $.desti);
-          break;
+    if(inc > 0){
+        switch(prefix){
+            case "cnt":
+              mutationUpdate("Contact", $.desti);
+              break;
+            case "lid":
+              mutationUpdate("Lead", $.desti);
+              break;
+        }
+    }else{
+        setInfoTab(tableRes,'Nothing to update '+idUpdate);
     }
     for(var i = 2; i < parts.length; i++){
         console.log("delete id="+parts[i]+ " prefix="+prefix);
