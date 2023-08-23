@@ -167,11 +167,15 @@ function fusionWithObject(e){
         console.log("delete id="+parts[i]+ " prefix="+prefix);
         switch(prefix){
             case "cnt":
-              mutationDelete("Contact", parts[i]);
-              break;
+                if(simContacts.find((sim) => sim.id1 === parts[i]).selected){
+                    mutationDelete("Contact", parts[i]);
+                }
+                break;
             case "lid":
-              mutationDelete("Lead", parts[i]);
-              break;
+                if(simLeads.find((sim) => sim.id1 === parts[i]).selected){
+                    mutationDelete("Lead", parts[i]);
+                }
+                break;
         }
     }
 }
