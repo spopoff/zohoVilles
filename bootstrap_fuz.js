@@ -40,6 +40,7 @@ var leads = [];
 var simLeads = [];
 var simContacts = [];
 var contacts = [];
+var accounts = [];
 const zohoCVM = "https://crm.zoho.com/crm/org26538990/";
 const spoCVM = "http://localhost:8099/graphql";
 
