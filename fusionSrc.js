@@ -155,6 +155,8 @@ function fusionWithObject(e){
     var idUpdate = parts[1];
     console.log("update id="+idUpdate+ " prefix="+prefix);
     $.desti["id"] = idUpdate;
+    tableInfos(tableRes, "tabloRes", "Infos");
+    tableInfos(tableErr, "tabloErr", "Errors");
     switch(prefix){
         case "cnt":
           mutationUpdate("Contact", $.desti);
@@ -207,9 +209,7 @@ function mutationUpdate(prefix, fusion){
 		}
 	}).then(function(res){
             if(res !== undefined){
-                alert("Save update "+prefix);
-            }else{
-                alert("Send update "+prefix);
+                setInfoTab(tableRes,'Done '+res.data);
             }
 	})
 	.catch(function(error) {
