@@ -285,6 +285,9 @@ window.onhashchange = function( e ) {
         if(prms.pka !== undefined){
             getAccountInfo(prms.pka);
         }
+        if(prms.fk !== undefined){
+            fusionLink(prms.fk);
+        }
     }
 };
 if(!window.HashChangeEvent)(function(){

@@ -375,3 +375,10 @@ function fusionClick(e){
     clearTablos();
     compareObjs(parts[0], parts[1], parts[2]);
 }
+function fusionLink(lien){
+    $.desti = new Object();
+    var parts = [];
+    parts = lien.split(";");
+    clearTablos();
+    compareObjs(parts[0], parts[1], parts[2]);
+}
