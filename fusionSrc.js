@@ -70,8 +70,9 @@ function rowSelected(tab, id, prefix){
     td.colSpan = 5;
     var tx = document.createTextNode("Item selected for deletion ");
     td.appendChild(tx);
-    var feld = document.createElement("checkbox");
-    feld.value = true;
+    var feld = document.createElement("input");
+    feld.type = "checkbox";
+    feld.checked = true;
     feld.id = prefix + ';' + id;
     feld.onclick = function(e) { return selectObject(e); };
     td.appendChild(feld);
