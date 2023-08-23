@@ -61,11 +61,11 @@ function rowTabSimilarContact(table, contactSim){
     var idLink = 'cnt;'+ contactSim.id1+";" +contactSim.id2;
     x3.id = idLink;
     x3.text = "fusion";
-    //x3.href = "#";
-    x3.href = "?fk="+idLink;
-    x3.target = "_blank";
-    //x3.onclick = function(e) { return fusionClick(e); };
-    x3.onclick = function(e) { window.dispatchEvent(new Event('locationchange')); };
+    x3.href = "#";
+    //x3.href = "?fk="+idLink;
+    //x3.target = "_blank";
+    x3.onclick = function(e) { return fusionClick(e); };
+    //x3.onclick = function(e) { window.dispatchEvent(new Event('locationchange')); };
 //    var txha2 = document.createTextNode(x2);
     th3.appendChild(x3);
     tr.appendChild(th3);
