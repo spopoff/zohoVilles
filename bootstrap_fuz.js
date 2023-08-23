@@ -204,8 +204,13 @@ function getQueryString(href){
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  simLeads.sort((a, b) => a.id2.localeCompare(b.id2));
-  simContacts.sort((a, b) => a.id2.localeCompare(b.id2));
+    simLeads.sort((a, b) => a.id2.localeCompare(b.id2));
+    simContacts.sort((a, b) => a.id2.localeCompare(b.id2));
+    console.log('DOMContentLoaded event occurred!');
+    var prms = getQueryString(location.href);
+    if(prms.fk !== undefined){
+        fusionLink(prms.fk);
+    }
 });
 ;(function() {
     var pushState = history.pushState;
