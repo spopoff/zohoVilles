@@ -346,7 +346,7 @@ function compareObjs(prefix, id1, id2){
         getSomeObjects(prefix, id2).forEach(function(sim){
             $objA = getOneObject(prefix, sim.id1);
             dels.push(sim.id1);
-            rowSelected(tab, sim.id1);
+            rowSelected(tab, sim.id1, prefix);
             rowsTabFusion(tab, $objA, $objB, prefix);
         });
     }
