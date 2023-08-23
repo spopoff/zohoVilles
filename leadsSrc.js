@@ -66,6 +66,7 @@ function rowTabSimilarLead(table, leadSim){
     x3.id = 'lid;'+ leadSim.id1+";" +leadSim.id2;
     x3.text = "fusion";
     x3.href = "#";
+    x3.target = "_blank";
     x3.onclick = function(e) { return fusionClick(e); };
 //    var txha2 = document.createTextNode(x2);
     th3.appendChild(x3);

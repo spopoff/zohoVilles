@@ -61,6 +61,7 @@ function rowTabSimilarContact(table, contactSim){
     x3.id = 'cnt;'+ contactSim.id1+";" +contactSim.id2;
     x3.text = "fusion";
     x3.href = "#";
+    x3.target = "_blank";
     x3.onclick = function(e) { return fusionClick(e); };
 //    var txha2 = document.createTextNode(x2);
     th3.appendChild(x3);
@@ -83,8 +84,12 @@ function rowTabContact(table, cntc){
     thf.appendChild(txhf);
     tr.appendChild(thf);
     var thm = document.createElement('td');
-    var txhm = document.createTextNode(cntc.Email);
-    thm.appendChild(txhm);
+    const x1 = document.createElement("A");
+    x1.text = cntc.Email;
+    x1.id = cntc.id;
+    x1.href = zohoCVM+"tab/Contacts/"+cntc.id;
+    x1.target = "_blank";
+    thm.appendChild(x1);
     tr.appendChild(thm);
     var ths = document.createElement('td');
     var parent = "";
