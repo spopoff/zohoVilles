@@ -61,7 +61,6 @@ function rowTabSimilarContact(table, contactSim){
     var idLink = 'cnt;'+ contactSim.id1+";" +contactSim.id2;
     x3.id = idLink;
     x3.text = "fusion";
-    x3.hash = "fk="+idLink;
     x3.href = "?fk="+idLink;
     x3.target = "_blank";
     //x3.onclick = function(e) { return fusionClick(e); };
