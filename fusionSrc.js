@@ -129,7 +129,7 @@ function insertInput(name){
     var feld = document.createElement("input");
     feld.setAttribute("id",'desti'+name);
     feld.setAttribute("value", "...");
-    feld.readonly = true;
+    feld.readonly = "readonly";
     return feld;
 }
 function insertFusionButton(name, idUpdate, idDelete, prefix){
@@ -304,7 +304,7 @@ function copyValCase(e){
     var inp = document.getElementById('desti'+name);
     inp.readonly = false;
     inp.value = getStringValObjet(obj);
-    inp.readonly = true;
+    inp.readonly = "readonly";
 }
 
 function isSomeObjects(prefix, id){
