@@ -35,7 +35,7 @@ termes.
 /* global accounts */
 
 //Last_Name,First_Name,Full_Name,Email,Account_Name,Owner,Membre_du_R_seau,Tag,id
-function rowTabSimilarContact(table, contactSim){
+function rowTabSimilarContact(table, contactSim, url){
     var tr = document.createElement('tr'); 
     var tha = document.createElement('td');
     const x1 = document.createElement("A");
@@ -58,7 +58,7 @@ function rowTabSimilarContact(table, contactSim){
     tr.appendChild(tha2);
     var th3 = document.createElement('td');
     const x3 = document.createElement("A");
-    var idLink = 'cnt;'+ contactSim.id1+";" +contactSim.id2;
+    var idLink = 'cnt;'+ contactSim.id1+";" +contactSim.id2+ ";"+url;
     x3.id = idLink;
     x3.text = "fusion";
     x3.href = "fusion.html#&fk="+idLink;
@@ -182,7 +182,7 @@ function headTabContact(){
     table.appendChild(tr);
     return table;
 }
-function getSimilarContacts(partInfo){
+function getSimilarContacts(partInfo, url){
     var tab = headTabSimilarContact();
     var nbK = 0;
     var search = false;
@@ -193,11 +193,11 @@ function getSimilarContacts(partInfo){
     simContacts.forEach(function(contactSim){
         if(search){
             if(contactSim.contient(partInfo)){
-                rowTabSimilarContact(tab, contactSim);
+                rowTabSimilarContact(tab, contactSim, url);
                 nbK++;
             }
         }else{
-            rowTabSimilarContact(tab, contactSim);
+            rowTabSimilarContact(tab, contactSim, url);
             nbK++;
         }
     });
@@ -269,6 +269,5 @@ function showReportContact(){
 function showSimilarContact(){
     clearTablos();
     var ine = document.getElementById("contactSearch").value;
-    window.gqlCVM = document.getElementById("gqlCVM").value;
-    getSimilarContacts(ine);
+    getSimilarContacts(ine, document.getElementById("gqlCVM").value);
 }

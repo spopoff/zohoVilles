@@ -133,17 +133,17 @@ function insertInput(name){
     feld.setAttribute("readonly", true);
     return feld;
 }
-function insertFusionButton(name, idUpdate, idDelete, prefix){
+function insertFusionButton(name, idUpdate, idDelete, prefix, url){
     var feld = document.createElement("input");
     if(idDelete instanceof Array){
-        var idAttr = prefix + ';'+idUpdate;
+        var idAttr = prefix + ';'+idUpdate+ ';'+url;
         var sep = ";";
         idDelete.forEach(function(id){
             idAttr += sep + id;
         });
         feld.setAttribute("id",idAttr);
     }else{
-        feld.setAttribute("id",prefix+';'+idUpdate+";"+idDelete);
+        feld.setAttribute("id",prefix+';'+idUpdate+ ';'+url+";"+idDelete);
     }
     feld.setAttribute("type", "button");
     feld.setAttribute("value", name);
@@ -155,6 +155,7 @@ function fusionWithObject(e){
     parts = e.currentTarget.id.split(";");
     var prefix = parts[0];
     var idUpdate = parts[1];
+    var url = parts[2];
     console.log("update id="+idUpdate+ " prefix="+prefix);
     var inc = 0;
     for(const prop in $.desti){
@@ -166,26 +167,26 @@ function fusionWithObject(e){
     if(inc > 0){
         switch(prefix){
             case "cnt":
-              mutationUpdate("Contact", $.desti);
+              mutationUpdate("Contact", $.desti, url);
               break;
             case "lid":
-              mutationUpdate("Lead", $.desti);
+              mutationUpdate("Lead", $.desti, url);
               break;
         }
     }else{
         setInfoTab(tableRes,'Nothing to update '+idUpdate);
     }
-    for(var i = 2; i < parts.length; i++){
+    for(var i = 3; i < parts.length; i++){
         console.log("delete id="+parts[i]+ " prefix="+prefix);
         switch(prefix){
             case "cnt":
                 if(simContacts.find((sim) => sim.id1 === parts[i]).selected){
-                    mutationDelete("Contact", parts[i]);
+                    mutationDelete("Contact", parts[i], url);
                 }
                 break;
             case "lid":
                 if(simLeads.find((sim) => sim.id1 === parts[i]).selected){
-                    mutationDelete("Lead", parts[i]);
+                    mutationDelete("Lead", parts[i], url);
                 }
                 break;
         }
@@ -199,8 +200,7 @@ function cleanIt(obj) {
     });
 }
 
-function mutationUpdate(prefix, fusion){
-	var url = window.gqlCVM;
+function mutationUpdate(prefix, fusion, url){
 	var head = new Headers();
 	head.append("Content-Type", "application/json");
 	mut = { query: 'mutation Update'+prefix+' {update'+prefix+'('+prefix.toLowerCase()+': '+cleanIt(fusion)+')}'
@@ -227,8 +227,7 @@ function mutationUpdate(prefix, fusion){
 	});
 	
 }
-function mutationDelete(prefix, id){
-	var url = window.gqlCVM;
+function mutationDelete(prefix, id, url){
 	var head = new Headers();
 	head.append("Content-Type", "application/json");
 	mut = { query: 'mutation Delztz'+prefix+' {delete'+prefix+'( id:"'+id+'")}'
@@ -341,7 +340,7 @@ function getOneObject(prefix, id){
             break;
     }
 }
-function compareObjs(prefix, id1, id2){
+function compareObjs(prefix, id1, id2, url){
     var tab = headTabFusion();
     var plus = isSomeObjects(prefix, id2);
     var dels = [];
@@ -363,11 +362,11 @@ function compareObjs(prefix, id1, id2){
     //bouton de choix
     div.appendChild(document.createElement('br'));
     if(!plus){
-        div.appendChild(insertFusionButton("fusion in object 1", id1, id2, prefix));
+        div.appendChild(insertFusionButton("fusion in object 1", id1, id2, prefix, url));
         div.appendChild(document.createTextNode( '\u00A0\u00A0' ));
-        div.appendChild(insertFusionButton("fusion in object 2", id2, id1, prefix));
+        div.appendChild(insertFusionButton("fusion in object 2", id2, id1, prefix, url));
     }else{
-        div.appendChild(insertFusionButton("fusion all in object 2", id2, dels, prefix));
+        div.appendChild(insertFusionButton("fusion all in object 2", id2, dels, prefix, url));
     }
 }
 function fusionClick(e){
@@ -382,5 +381,5 @@ function fusionLink(lien){
     var parts = [];
     parts = lien.split(";");
     clearTablos();
-    compareObjs(parts[0], parts[1], parts[2]);
+    compareObjs(parts[0], parts[1], parts[2], parts[3]);
 }
