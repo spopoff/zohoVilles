@@ -243,6 +243,7 @@ function showReportLead(){
 }
 function showSimilarLead(){
     clearTablos();
+    window.gqlCVM = document.getElementById("gqlCVM").value;
     var ine = document.getElementById("leadSearch").value;
     getSimilarLeads(ine);
 }

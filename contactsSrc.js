@@ -269,5 +269,6 @@ function showReportContact(){
 function showSimilarContact(){
     clearTablos();
     var ine = document.getElementById("contactSearch").value;
+    window.gqlCVM = document.getElementById("gqlCVM").value;
     getSimilarContacts(ine);
 }

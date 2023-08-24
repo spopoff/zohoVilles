@@ -200,7 +200,7 @@ function cleanIt(obj) {
 }
 
 function mutationUpdate(prefix, fusion){
-	var url = document.getElementById("gqlCVM").value;
+	var url = window.gqlCVM;
 	var head = new Headers();
 	head.append("Content-Type", "application/json");
 	mut = { query: 'mutation Update'+prefix+' {update'+prefix+'('+prefix.toLowerCase()+': '+cleanIt(fusion)+')}'
@@ -228,7 +228,7 @@ function mutationUpdate(prefix, fusion){
 	
 }
 function mutationDelete(prefix, id){
-	var url = document.getElementById("gqlCVM").value;
+	var url = window.gqlCVM;
 	var head = new Headers();
 	head.append("Content-Type", "application/json");
 	mut = { query: 'mutation Delztz'+prefix+' {delete'+prefix+'( id:"'+id+'")}'
