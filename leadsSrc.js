@@ -32,7 +32,7 @@ Le fait que vous puissiez accéder à cet en-tête signifie que vous avez
 pris connaissance de la licence [CeCILL|CeCILL-B|CeCILL-C], et que vous en avez accepté les
 termes.
  */
-function rowTabSimilarLead(table, leadSim){
+function rowTabSimilarLead(table, leadSim, url){
     var tr = document.createElement('tr'); 
     var tha = document.createElement('td');
     const x1 = document.createElement("A");
@@ -63,7 +63,7 @@ function rowTabSimilarLead(table, leadSim){
     tr.appendChild(ths2);
     var th3 = document.createElement('td');
     const x3 = document.createElement("A");
-    var idLink = 'lid;'+ leadSim.id1+";" +leadSim.id2;
+    var idLink = 'lid;'+ leadSim.id1+";" +leadSim.id2+";"+url;
     x3.id = idLink;
     x3.text = "fusion";
     x3.href = "fusion.html#&fk="+idLink;
@@ -177,7 +177,7 @@ function getLeadInfo(id){
         div.appendChild(tab);
     }
 }
-function getSimilarLeads(partInfo){
+function getSimilarLeads(partInfo, url){
     var tab = headTabSimilarLead();
     var nbK = 0;
     var search = false;
@@ -188,11 +188,11 @@ function getSimilarLeads(partInfo){
     simLeads.forEach(function(leadSim){
         if(search){
             if(leadSim.contient(partInfo)){
-                rowTabSimilarLead(tab, leadSim);
+                rowTabSimilarLead(tab, leadSim, url);
                 nbK++;
             }
         }else{
-            rowTabSimilarLead(tab, leadSim);
+            rowTabSimilarLead(tab, leadSim, url);
             nbK++;
         }
     });
@@ -245,5 +245,5 @@ function showSimilarLead(){
     clearTablos();
     window.gqlCVM = document.getElementById("gqlCVM").value;
     var ine = document.getElementById("leadSearch").value;
-    getSimilarLeads(ine);
+    getSimilarLeads(ine, document.getElementById("gqlCVM").value);
 }
