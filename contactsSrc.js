@@ -231,7 +231,7 @@ function getReportContact(isFile, partInfo, state){
                 const itm = contacts.find((lid) => lid.id === old.id);
                 if(itm === undefined){
                     const del = new Contact(old.id);
-                    del.Name = old.id;
+                    del.Last_Name = old.id;
                     del.Modified_Time = old.Modified_Time;
                     rowTabLead(tab, del);
                     nbK++;
