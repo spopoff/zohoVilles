@@ -233,7 +233,7 @@ function getReportContact(isFile, partInfo, state){
                     const del = new Contact(old.id);
                     del.Last_Name = old.id;
                     del.Modified_Time = old.Modified_Time;
-                    rowTabLead(tab, del);
+                    rowTabContact(tab, del);
                     nbK++;
                 }
             });
@@ -246,7 +246,7 @@ function getReportContact(isFile, partInfo, state){
             contacts.forEach(function(lid){
                 const old = contactsOld.find((un) => un.id === lid.id);
                 if(old === undefined){
-                    rowTabLead(tab, lid);
+                    rowTabContact(tab, lid);
                     nbK++;
                 }
             });

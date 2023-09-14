@@ -200,7 +200,7 @@ function getReportCampaign(isFile, partInfo, state){
                     const del = new Campaign(old.id);
                     del.Name = old.id;
                     del.Modified_Time = old.Modified_Time;
-                    rowTabLead(tab, del);
+                    rowTabCampaign(tab, del);
                     nbK++;
                 }
             });
@@ -213,7 +213,7 @@ function getReportCampaign(isFile, partInfo, state){
             campaigns.forEach(function(lid){
                 const old = campaignsOld.find((un) => un.id === lid.id);
                 if(old === undefined){
-                    rowTabLead(tab, lid);
+                    rowTabCampaign(tab, lid);
                     nbK++;
                 }
             });
