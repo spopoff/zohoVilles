@@ -1,5 +1,5 @@
 /*
-Copyright Stéphane Georges Popoff, (juillet 2009 - août 2023)
+Copyright Stéphane Georges Popoff, (juillet 2009 - septembre 2023)
 
 spopoff@rocketmail.com
 
@@ -236,10 +236,12 @@ function getData(objGF){
     switch(objGF.code){
         case "2_1":
             //Nb Leads Contacts Accounts
-            var ids = new DataSet("nbLCA");
-            objGF.addLabel = "Leads nb";
+            var ids = new DataSet("nbItems");
+            objGF.addLabel = "Pistes nb";
             ids.addData = getMapSize(leads);
-            objGF.addLabel = "Accounts nb";
+            objGF.addLabel = "Evénements nb";
+            ids.addData = getMapSize(campaigns);
+            objGF.addLabel = "Comptes nb";
             ids.addData = getMapSize(accounts);
             objGF.addLabel = "Contacts nb";
             ids.addData = getMapSize(contacts);
@@ -268,7 +270,7 @@ function getData(objGF){
         break;
         case "2_3":
             //nb account per type
-            var ids = new DataSet("nbAccountType");
+            var ids = new DataSet("nbTypeCompte");
             var tags = new Map();
             accounts.forEach(function(accnt){
                 var inc = tags.get(accnt.Account_Type);
@@ -286,19 +288,17 @@ function getData(objGF){
             objGF.addDataset = ids;
         break;
         case "2_4":
-            //nb account per reseau
-            var ids = new DataSet("nbReseau");
+            //nb contacts per reseau
+            var ids = new DataSet("nbMembreReseau");
             var tags = new Map();
-            accounts.forEach(function(accnt){
-                accnt.Reseau.forEach(function(tag){
-                    var inc = tags.get(tag.name);
-                    if(inc === undefined){
-                        tags.set(tag.name, 1);
-                    }else{
-                        inc++;
-                        tags.set(tag.name, inc);
-                    }
-                });
+            contacts.forEach(function(cnt){
+                var inc = tags.get(cnt.Membre_du_R_seau);
+                if(inc === undefined){
+                    tags.set(cnt.Membre_du_R_seau, 1);
+                }else{
+                    inc++;
+                    tags.set(cnt.Membre_du_R_seau, inc);
+                }
             });
             tags.forEach(function(value, key, map){
                 objGF.addLabel = key;
@@ -325,6 +325,137 @@ function getData(objGF){
                 }
                 inc++;
             });
+            objGF.addDataset = ids;
+        break;
+        case "2_6":
+            //nb item before after limit
+            var ids = new DataSet("Items_Modification_Mars_2014");
+            const limit = new Date("2014-03-15T12:00:00+05:30");
+            var accntSup = 0;
+            var accntInf = 0;
+            accounts.forEach(function(accnt){
+                const modif = new Date(accnt.Modified_Time);
+                if(modif >= limit){
+                    accntSup++;
+                }else{
+                    accntInf++;
+                }
+            });
+            var leadSup = 0;
+            var leadInf = 0;
+            leads.forEach(function(lead){
+                const modif = new Date(lead.Modified_Time);
+                if(modif >= limit){
+                    leadSup++;
+                }else{
+                    leadInf++;
+                }
+            });
+            var cntSup = 0;
+            var cntInf = 0;
+            contacts.forEach(function(cnt){
+                const modif = new Date(cnt.Modified_Time);
+                if(modif >= limit){
+                    cntSup++;
+                }else{
+                    cntInf++;
+                }
+            });
+            var cmpSup = 0;
+            var cmpInf = 0;
+            campaigns.forEach(function(cmp){
+                const modif = new Date(cmp.Modified_Time);
+                if(modif >= limit){
+                    cmpSup++;
+                }else{
+                    cmpInf++;
+                }
+            });
+            objGF.addLabel = "Comptes sans modification";
+            ids.addData = accntInf;
+            objGF.addLabel = "Comptes modifiés depuis";
+            ids.addData = accntSup;
+            objGF.addLabel = "Pistes sans modification";
+            ids.addData = leadInf;
+            objGF.addLabel = "Pistes modifiées depuis";
+            ids.addData = leadSup;
+            objGF.addLabel = "Contacts sans modification";
+            ids.addData = cntInf;
+            objGF.addLabel = "Contacts modifiées depuis";
+            ids.addData = cntSup;
+            objGF.addLabel = "Evénements sans modification";
+            ids.addData = cmpInf;
+            objGF.addLabel = "Evénements modifiées depuis";
+            ids.addData = cmpSup;
+            objGF.addDataset = ids;
+        break;
+        case "2_7":
+            var ids = new DataSet("Contact_des_Comptes");
+            var accntCnt = 0;
+            var accntNull = 0;
+            accounts.forEach(function(accnt){
+                if(accnt.contacts === null){
+                    accntNull++;
+                }else if(accnt.contacts === undefined){
+                    accntNull++;
+                }else if(accnt.contacts.length === 0){
+                    accntNull++;
+                }else{
+                    accntCnt++;
+                }
+            });
+            objGF.addLabel = "Comptes sans Contact";
+            ids.addData = accntNull;
+            objGF.addLabel = "Comptes with Contact";
+            ids.addData = accntCnt;
+            objGF.addDataset = ids;
+        break;
+        case "2_8":
+            var ids = new DataSet("Changements_depuis_dernier_rapport");
+            objGF.addLabel = "Nb événements";
+            ids.addData = campaigns.length;
+            objGF.addLabel = "Nb événements inchangés";
+            ids.addData = getNb4States4Type("idm", campaignsOld, campaigns, "cmp");
+            objGF.addLabel = "Nb événements supprimés";
+            ids.addData = getNb4States4Type("del", campaignsOld, campaigns, "cmp");
+            objGF.addLabel = "Nb événements modifiés";
+            ids.addData = getNb4States4Type("upd", campaignsOld, campaigns, "cmp");
+            objGF.addLabel = "Nb événements nouveaux";
+            ids.addData = getNb4States4Type("new", campaignsOld, campaigns, "cmp");
+
+            objGF.addLabel = "Nb pistes";
+            ids.addData = leads.length;
+            objGF.addLabel = "Nb pistes inchangés";
+            ids.addData = getNb4States4Type("idm", leadsOld, leads, "lid");
+            objGF.addLabel = "Nb pistes supprimés";
+            ids.addData = getNb4States4Type("del", leadsOld, leads, "lid");
+            objGF.addLabel = "Nb pistes modifiés";
+            ids.addData = getNb4States4Type("upd", leadsOld, leads, "lid");
+            objGF.addLabel = "Nb pistes nouveaux";
+            ids.addData = getNb4States4Type("new", leadsOld, leads, "lid");
+            
+            objGF.addLabel = "Nb comptes";
+            ids.addData = accounts.length;
+            objGF.addLabel = "Nb comptes inchangés";
+            ids.addData = getNb4States4Type("idm", accountsOld, accounts, "acc");
+            objGF.addLabel = "Nb comptes supprimés";
+            ids.addData = getNb4States4Type("del", accountsOld, accounts, "acc");
+            objGF.addLabel = "Nb comptes modifiés";
+            ids.addData = getNb4States4Type("upd", accountsOld, accounts, "acc");
+            objGF.addLabel = "Nb comptes nouveaux";
+            ids.addData = getNb4States4Type("new", accountsOld, accounts, "acc");
+            
+            objGF.addLabel = "Nb contacts";
+            ids.addData = contacts.length;
+            objGF.addLabel = "Nb contacts inchangés";
+            ids.addData = getNb4States4Type("idm", contactsOld, contacts, "cnt");
+            objGF.addLabel = "Nb contacts supprimés";
+            ids.addData = getNb4States4Type("del", contactsOld, contacts, "cnt");
+            objGF.addLabel = "Nb contacts modifiés";
+            ids.addData = getNb4States4Type("upd", contactsOld, contacts, "cnt");
+            objGF.addLabel = "Nb contacts nouveaux";
+            ids.addData = getNb4States4Type("new", contactsOld, contacts, "cnt");
+            
             objGF.addDataset = ids;
         break;
         case "2_9":

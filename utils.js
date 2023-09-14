@@ -1,5 +1,5 @@
 /*
-Copyright Stéphane Georges Popoff, (juillet 2009 - septembre 2020)
+Copyright Stéphane Georges Popoff, (juillet 2009 - septembre 2023)
 
 spopoff@rocketmail.com
 
@@ -34,248 +34,109 @@ termes.
  */
 
 
-/* global aps */
-
-function getPersonalCred(idnNm, aksTok){
-	var url = "https://" + idnNm + ".api.identitynow.com/beta/personal-access-tokens";
+function getAccessTokenTest(cliId, cliSt, code){
 	var head = new Headers();
-	head.append("Content-Type", "application/json");
-	head.append("Authorization", "Bearer "+aksTok);
-	pat = {
-		name: "APCSV_AXA5"
-	}
-	var param = {
-		method: 'Post',
-		headers: head,
-		body: JSON.stringify(pat)
-	};
-	var req = new Request(url,param);
-	fetch(req, param).then(function(response){
-		if(response.ok){
-			return response.clone().json();
-		}else{
-			setInfoTab(tableErr,'Error get personnal access token: ' + response.status+" message="+response.statusText);
-		}
-	}).then(function(res){
-		$('#idnAk').val("");
-		$('#idnId').val(res.id);
-		$('#idnSt').val(res.secret);
-		alert("Save clientId and Client Secret for reuse");
-	})
-	.catch(function(error) {
-		setInfoTab(tableErr,'Error get personnal access token: ' + error.message);
-	});
-	
-}
-/**
-* il faut en plus récupérer les accessProfileId pour encuite
-* retourner dans la boucle normale des applis
-*/
-function getAccessTokenForApplisForced(idnId, idnSt, idnNm){
-	var head = new Headers();
-	head.append("Content-Type", "application/json");
+	head.append("Content-Type", "application/x-www-form-urlencoded");
 	var body = {
-		grant_type: 'client_credentials',
-		client_id: idnId,
-		client_secret: idnSt
+            grant_type: 'authorization_code',
+            client_id: cliId,
+            client_secret: cliSt,
+            code: code,
+            redirect_url: 'https://cvm.spopoff.net:8443/login/oauth2/code/zoho'
 	};
-	var url = "https://" + idnNm + ".api.identitynow.com/oauth/token";
-	url += "?client_id="+idnId+"&client_secret="+idnSt+"&grant_type=client_credentials"
+	var url = "https://accounts.zoho.com/oauth/v2/token";
 	var param = {
-		method: 'POST'
+            method: 'POST',
+            body: JSON.stringify(body)
 	};
 	var req = new Request(url,param);
 	fetch(req, param).then(function(response){
-		if(response.ok){
-			return response.clone().json();
-		}else{
-			tableInfos(tableErr, "tabloErr", "Errors");
-			setInfoTab(tableErr,'Error fetch getAccessTokenForApplis: ' + response.status+" message="+response.statusText);
-		}
+            if(response.ok){
+                return response.clone().json();
+            }else{
+                tableInfos(tableErr, "tabloErr", "Errors");
+                setInfoTab(tableErr,'Error fetch access token: ' + response.status+" message="+response.statusText);
+            }
 	}).then(function(res){
-		if(res !== undefined){
-			//va mettre à jour les identifiants d' accessProfile
-			setAccessProfilesAP(res.access_token, idnNm, aps);
-		}else{
-			setInfoTab(tableErr,'Error fetch getAccessTokenForApplis: no access token');
-		}
-	})
-	.catch(function(error) {
-		setInfoTab(tableErr,'Error fetch getAccessTokenForApplis: ' + error.message);
-	});
-}
-
-/**
-* retour sur le forçage des applis
-* on doit boucler sur 20 entrées pour éviter le 429
-*/
-function getAccessTokenForApplis(idnId, idnSt, idnNm){
-	var head = new Headers();
-	head.append("Content-Type", "application/json");
-	var body = {
-		grant_type: 'client_credentials',
-		client_id: idnId,
-		client_secret: idnSt
-	};
-	var url = "https://" + idnNm + ".api.identitynow.com/oauth/token";
-	url += "?client_id="+idnId+"&client_secret="+idnSt+"&grant_type=client_credentials"
-	var param = {
-		method: 'POST'
-	};
-	var req = new Request(url,param);
-	fetch(req, param).then(function(response){
-		if(response.ok){
-			return response.clone().json();
-		}else{
-			tableInfos(tableErr, "tabloErr", "Errors");
-			setInfoTab(tableErr,'Error fetch getAccessTokenForApplis: ' + response.status+" message="+response.statusText);
-		}
-	}).then(function(res){
-		if(res !== undefined){
-			//retour vers la mise à jours des 20 prochaines applis
-			setAppAccessProfile(res.access_token, idnNm, aps);
-		}else{
-			setInfoTab(tableErr,'Error fetch getAccessTokenForApplis: no access token');
-		}
-	})
-	.catch(function(error) {
-		setInfoTab(tableErr,'Error fetch getAccessTokenForApplis: ' + error.message);
-	});
-}
-
-
-function getAccessTokenV3(idnId, idnSt, idnNm){
-	var head = new Headers();
-	head.append("Content-Type", "application/json");
-	var body = {
-		grant_type: 'client_credentials',
-		client_id: idnId,
-		client_secret: idnSt
-	};
-	var url = "https://" + idnNm + ".api.identitynow.com/oauth/token";
-	url += "?client_id="+idnId+"&client_secret="+idnSt+"&grant_type=client_credentials"
-	var param = {
-		method: 'POST'
-	};
-	var req = new Request(url,param);
-	fetch(req, param).then(function(response){
-		if(response.ok){
-			return response.clone().json();
-		}else{
-			tableInfos(tableErr, "tabloErr", "Errors");
-			setInfoTab(tableErr,'Error fetch access token: ' + response.status+" message="+response.statusText);
-		}
-	}).then(function(res){
-		getAccessProfilesV3(res.access_token, aps, idnNm);
+            if(res.access_token !== undefined){
+                setInfoTab(tableRes,'Done :'+res.access_token);
+            }else{
+                tableInfos(tableErr, "tabloErr", "Errors");
+                setInfoTab(tableErr,'Error fetch access token: ' + res.error);
+            }
 		
 	})
 	.catch(function(error) {
-		setInfoTab(tableErr,'Error fetch access token: ' + error.message);
-	});
-}
-/**
-* récupère l'accès token et charge la liste des applis 'voir applis.getAppsOld)
-*/
-function getAccessTokenOldAP(idnId, idnSt, idnNm, oaps, tab){
-	var head = new Headers();
-	head.append("Content-Type", "application/json");
-	var body = {
-		grant_type: 'client_credentials',
-		client_id: idnId,
-		client_secret: idnSt
-	};
-	var url = "https://" + idnNm + ".api.identitynow.com/oauth/token";
-	url += "?client_id="+idnId+"&client_secret="+idnSt+"&grant_type=client_credentials"
-	var param = {
-		method: 'POST'
-	};
-	var req = new Request(url,param);
-	fetch(req, param).then(function(response){
-		if(response.ok){
-			return response.clone().json();
-		}else{
-			tableInfos(tableErr, "tabloErr", "Errors");
-			setInfoTab(tableErr,'Error fetch access token: ' + response.status+" message="+response.statusText);
-		}
-	}).then(function(res){
-		if(res !== undefined){
-			loadOldAccessProfile(res.access_token, oaps, idnNm, tab);
-		}
-		
-	})
-	.catch(function(error) {
-		setInfoTab(tableErr,'Error fetch access token: ' + error.message);
+            setInfoTab(tableErr,'Error fetch access token: ' + error.message);
 	});
 }
 
+function getAuthzCode(cliId, scope){
+	var head = new Headers();
+	head.append("Content-Type", "application/x-www-form-urlencoded");
+	var url = "https://accounts.zoho.eu/signin?servicename=AaaServer&Serviceurl="+
+                "https://accounts.zoho.eu/oauth/v2/token?scope="+scope+
+                "&client_id="+cliId+"&response_type=code&access_type=online"+
+                "&redirect_uri=http://spopoff.com";
+	var param = {
+            method: 'GET'
+	};
+	var req = new Request(url,param);
+	fetch(req, param).then(function(response){
+            if(response.ok){
+                return response;
+            }else{
+                tableInfos(tableErr, "tabloErr", "Errors");
+                setInfoTab(tableErr,'Error fetch access token: ' + response.status+" message="+response.statusText);
+            }
+	}).then(function(res){
+            res.text().then(function(data){
+                //const win = window.open("", "_blank", "popup");
+                window.document.write(data);
+            });
+	})
+	.catch(function(error) {
+            setInfoTab(tableErr,'Error fetch access token: ' + error.message);
+	});
+}
 
-function getAccessTokenTest(idnId, idnSt, idnNm, aps){
+function getAccessTokenRefresh(cliId, cliSt, aksTok){
 	var head = new Headers();
-	head.append("Content-Type", "application/json");
+	head.append("Content-Type", "application/x-www-form-urlencoded");
 	var body = {
-		grant_type: 'client_credentials',
-		client_id: idnId,
-		client_secret: idnSt
+            grant_type: 'authorization_code',
+            client_id: cliId,
+            client_secret: cliSt,
+            code: code,
+            redirect_url: 'http://spopoff.com'
 	};
-	var url = "https://" + idnNm + ".api.identitynow.com/oauth/token";
-	url += "?client_id="+idnId+"&client_secret="+idnSt+"&grant_type=client_credentials"
+	var url = "https://accounts.zoho.eu/oauth/v2/token";
 	var param = {
-		method: 'POST'
+            method: 'POST',
+            body: JSON.stringify(body)
 	};
 	var req = new Request(url,param);
 	fetch(req, param).then(function(response){
-		if(response.ok){
-			return response.clone().json();
-		}else{
-			tableInfos(tableErr, "tabloErr", "Errors");
-			setInfoTab(tableErr,'Error fetch access token: ' + response.status+" message="+response.statusText);
-		}
+            if(response.ok){
+                return response.clone().json();
+            }else{
+                tableInfos(tableErr, "tabloErr", "Errors");
+                setInfoTab(tableErr,'Error fetch access token: ' + response.status+" message="+response.statusText);
+            }
 	}).then(function(res){
-		getAppsTest(res.access_token, aps, idnNm);
+            if(res.access_token !== undefined){
+                setInfoTab(tableRes,'Done :'+res.access_token);
+            }else{
+                tableInfos(tableErr, "tabloErr", "Errors");
+                setInfoTab(tableErr,'Error fetch access token: ' + res.error);
+            }
 		
 	})
 	.catch(function(error) {
-		setInfoTab(tableErr,'Error fetch access token: ' + error.message);
+            setInfoTab(tableErr,'Error fetch access token: ' + error.message);
 	});
 }
-/**
-* import d'un fichier AP
-*/
-function getAccessToken(idnId, idnSt, idnNm, aps){
-	var head = new Headers();
-	head.append("Content-Type", "application/json");
-	var body = {
-		grant_type: 'client_credentials',
-		client_id: idnId,
-		client_secret: idnSt
-	};
-	var url = "https://" + idnNm + ".api.identitynow.com/oauth/token";
-	url += "?client_id="+idnId+"&client_secret="+idnSt+"&grant_type=client_credentials"
-	var param = {
-		method: 'POST'
-	};
-	var req = new Request(url,param);
-	fetch(req, param).then(function(response){
-		if(response.ok){
-			return response.clone().json();
-		}else{
-			tableInfos(tableErr, "tabloErr", "Errors");
-			setInfoTab(tableErr,'Error fetch access token: ' + response.status+" message="+response.statusText);
-		}
-	}).then(function(res){
-		if(res !== undefined){
-			idnAk = res.access_token;
-			getSrcs(idnAk, aps, idnNm);
-		}else{
-			$("#intAP").show();
-		}
-		
-	})
-	.catch(function(error) {
-		setInfoTab(tableErr,'Error fetch access token: ' + error.message);
-		$("#intAP").show();
-	});
-}
+
 function clearTablos(){
     tableRes = document.createElement('table');
     tableErr = document.createElement('table');
@@ -367,79 +228,109 @@ function download(filename, text) {
     element.click();
     document.body.removeChild(element);
 }
-function CSVToArray( strData, strDelimiter ){
-	// Check to see if the delimiter is defined. If not,
-	// then default to comma.
-	strDelimiter = (strDelimiter || ",");
 
-	// Create a regular expression to parse the CSV values.
-	var objPattern = new RegExp(
-		(
-			// Delimiters.
-			"(\\" + strDelimiter + "|\\r?\\n|\\r|^)" +
-			// Quoted fields.
-			"(?:\"([^\"]*(?:\"\"[^\"]*)*)\"|" +
-
-			// Standard fields.
-			"([^\\" + strDelimiter + "\\r\\n]*))"
-		),
-		"gi"
-		);
-	// Create an array to hold our data. Give the array
-	// a default empty first row.
-	var arrData = [[]];
-	// Create an array to hold our individual pattern
-	// matching groups.
-	var arrMatches = null;
-	// Keep looping over the regular expression matches
-	// until we can no longer find a match.
-	while (arrMatches = objPattern.exec( strData )){
-		// Get the delimiter that was found.
-		var strMatchedDelimiter = arrMatches[ 1 ];
-
-		// Check to see if the given delimiter has a length
-		// (is not the start of string) and if it matches
-		// field delimiter. If id does not, then we know
-		// that this delimiter is a row delimiter.
-		if (
-			strMatchedDelimiter.length &&
-			(strMatchedDelimiter != strDelimiter)
-			){
-			// Since we have reached a new row of data,
-			// add an empty row to our data array.
-			arrData.push( [] );
-
-		}
-		// Now that we have our delimiter out of the way,
-		// let's check to see which kind of value we
-		// captured (quoted or unquoted).
-		if (arrMatches[ 2 ]){
-			// We found a quoted value. When we capture
-			// this value, unescape any double quotes.
-			/*var strMatchedValue = arrMatches[ 2 ].replace(
-				new RegExp( "\"\"", "g" ),
-				"\""
-				);
-			*/
-		} else {
-			// We found a non-quoted value.
-			var strMatchedValue = arrMatches[ 3 ];
-
-		}
-		// Now that we have our value string, let's add
-		// it to the data array.
-		arrData[ arrData.length - 1 ].push( strMatchedValue );
-	}
-
-	// Return the parsed data.
-	return( arrData );
+function requestAkstok(){
+    clearTablos();
+    const cliId = document.getElementById("cliId").value;
+    const cliSec = document.getElementById("cliSec").value;
+    const code = document.getElementById("authCode").value;
+    getAccessTokenTest(cliId, cliSec, code);
 }
-function setButtons(chk){
-	if(chk.checked && aps.length > 0){
-		$("#updApp").show();
-		$("#intAP").hide();
-	}else if(!chk.checked && aps.length > 0){
-		$("#updApp").hide();
-		$("#intAP").show();
-	}
+function refreshAkstok(){
+    clearTablos();
+    const cliId = document.getElementById("cliId").value;
+    const cliSec = document.getElementById("cliSec").value;
+    const code = document.getElementById("authCode").value;
+    getAccessTokenRefresh(cliId, cliSec, code);
 }
+function requestAuthzCode(){
+    clearTablos();
+    const cliId = document.getElementById("cliId").value;
+    const scope = document.getElementById("authCode").value;
+    getAuthzCode(cliId, scope);
+}
+function inState(modified_Time, id, state, objType){
+    switch(objType){
+        case "lid":
+            return inCollState(modified_Time, id, state, leadsOld);
+            break;
+        case "cnt":
+            return inCollState(modified_Time, id, state, contactsOld);
+            break;
+        case "acc":
+            return inCollState(modified_Time, id, state, accountsOld);
+            break;
+        case "cmp":
+            return inCollState(modified_Time, id, state, campaignsOld);
+            break;
+    }
+
+}
+function inCollState(modified_Time, id, state, oldStates){
+    var item = undefined;
+    const modifOld = new Date(modified_Time);
+    switch(state){
+        case "idm":
+            item = oldStates.find((itm) => itm.id === id && itm.Modified_Time === modified_Time);
+            break;
+        case "upd":
+            item = oldStates.find((itm) => itm.id === id);
+            if(item !== undefined){
+                const modifNow = new Date(item.Modified_Time);
+                if(modifNow > modifOld){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+            break;
+    }
+    if(item === undefined){
+        return false;
+    }
+    return true;
+}
+/**
+ * le nombre de changement
+ * @param {type} state new, del, upt, idm
+ * @param {type} olds le dernier rappor
+ * @param {type} actuals données actuelles
+ * @param {type} type cnt, acc, cmp, lid
+ * @returns {Number}
+ */
+function getNb4States4Type(state, olds, actuals, type){
+    var nbK = 0;
+    if("del" === state){
+        olds.forEach(function(old){
+            const itm = actuals.find((lid) => lid.id === old.id);
+            if(itm === undefined){
+                nbK++;
+            }
+        });
+        return nbK;
+    }
+    if("new" === state){
+        actuals.forEach(function(lid){
+            const old = olds.find((un) => un.id === lid.id);
+            if(old === undefined){
+                nbK++;
+            }
+        });
+        return nbK;
+    }
+    actuals.forEach(function(contact){
+        var found = true;
+        switch(state){
+            case "all":
+                break;
+            default:
+                found = inState(contact.Modified_Time, contact.id, state, type);
+                break;
+        }
+        if(found){
+            nbK++;
+        }
+    });
+    return nbK;
+}
+

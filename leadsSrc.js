@@ -1,5 +1,5 @@
 /* 
-Copyright Stéphane Georges Popoff, (juillet 2009 - août 2023)
+Copyright Stéphane Georges Popoff, (juillet 2009 - septembre 2023)
 
 spopoff@rocketmail.com
 
@@ -61,17 +61,6 @@ function rowTabSimilarLead(table, leadSim, url){
     var txhs2 = document.createTextNode(leadSim.Last_Name2);
     ths2.appendChild(txhs2);
     tr.appendChild(ths2);
-    var th3 = document.createElement('td');
-    const x3 = document.createElement("A");
-    var idLink = 'lid;'+ leadSim.id1+";" +leadSim.id2+";"+url;
-    x3.id = idLink;
-    x3.text = "fusion";
-    x3.href = "fusion.html#&fk="+idLink;
-    x3.target = "_blank";
-    //x3.onclick = function(e) { return fusionClick(e); };
-//    var txha2 = document.createTextNode(x2);
-    th3.appendChild(x3);
-    tr.appendChild(th3);
     table.appendChild(tr);
 }
 function rowTabLead(table, lead){
@@ -92,6 +81,10 @@ function rowTabLead(table, lead){
     var txhs = document.createTextNode(lead.Last_Name);
     ths.appendChild(txhs);
     tr.appendChild(ths);
+    var the2 = document.createElement('td');
+    var txhe2 = document.createTextNode(lead.Secondary_Email);
+    the2.appendChild(txhe2);
+    tr.appendChild(the2);
     var thp = document.createElement('td');
     var txhp = document.createTextNode(lead.Company);
     thp.appendChild(txhp);
@@ -126,11 +119,6 @@ function headTabSimilarLead(){
     var txhs2 = document.createTextNode('Last Name 2');
     ths2.appendChild(txhs2);
     tr.appendChild(ths2);
-    var th3 = document.createElement('th');
-    var txh3 = document.createTextNode('Fusion !');
-    th3.appendChild(txh3);
-    tr.appendChild(th3);
-    table.appendChild(tr);
     table.appendChild(tr);
     return table;
 }
@@ -140,23 +128,27 @@ function headTabLead(){
     var table = document.createElement('table');
     var tr = document.createElement('tr'); 
     var thi = document.createElement('th');
-    var txhi = document.createTextNode('Email');
+    var txhi = document.createTextNode(translations[locale]["leads-email"]);
     thi.appendChild(txhi);
     tr.appendChild(thi);
     var tha = document.createElement('th');
-    var txha = document.createTextNode('First Name');
+    var txha = document.createTextNode(translations[locale]["leads-1name"]);
     tha.appendChild(txha);
     tr.appendChild(tha);
     var ths = document.createElement('th');
-    var txhs = document.createTextNode('Last Name');
+    var txhs = document.createTextNode(translations[locale]["leads-lname"]);
     ths.appendChild(txhs);
     tr.appendChild(ths);
+    var the2 = document.createElement('th');
+    var txhe2 = document.createTextNode(translations[locale]["leads-2email"]);
+    the2.appendChild(txhe2);
+    tr.appendChild(the2);
     var thp = document.createElement('th');
-    var txhp = document.createTextNode('Company');
+    var txhp = document.createTextNode(translations[locale]["leads-company"]);
     thp.appendChild(txhp);
     tr.appendChild(thp);
     var tht = document.createElement('th');
-    var txht = document.createTextNode('Tag');
+    var txht = document.createTextNode(translations[locale]["leads-tag"]);
     tht.appendChild(txht);
     tr.appendChild(tht);
     table.appendChild(tr);
@@ -196,12 +188,12 @@ function getSimilarLeads(partInfo, url){
             nbK++;
         }
     });
-    setInfoTab(tableRes, "leads similar nb="+nbK);
+    setInfoTab(tableRes, translations[locale]["leads-count-sim"]+nbK);
     var div = document.getElementById("tablo");
     div.appendChild(tab);
     return;
 }
-function getReportLead(isFile, partInfo){
+function getReportLead(isFile, partInfo, state){
     var nbK = 0;
     var search = false;
     if(partInfo !== undefined && partInfo !== ""){
@@ -210,13 +202,52 @@ function getReportLead(isFile, partInfo){
     }
     if(!isFile){
         var tab = headTabLead();
+        if("del" === state){
+            leadsOld.forEach(function(old){
+                const itm = leads.find((lid) => lid.id === old.id);
+                if(itm === undefined){
+                    const del = new Lead(old.id);
+                    del.Email = old.id;
+                    del.Modified_Time = old.Modified_Time;
+                    del.First_Name = translations[locale]["deleted"];
+                    del.Last_Name = translations[locale]["deleted"];
+                    rowTabLead(tab, del);
+                    nbK++;
+                }
+            });
+            setInfoTab(tableRes, translations[locale]["leads-count"]+nbK);
+            var div = document.getElementById("tablo");
+            div.appendChild(tab);
+            return;
+        }
+        if("new" === state){
+            leads.forEach(function(lid){
+                const old = leadsOld.find((un) => un.id === lid.id);
+                if(old === undefined){
+                    rowTabLead(tab, lid);
+                    nbK++;
+                }
+            });
+            setInfoTab(tableRes, translations[locale]["leads-count"]+nbK);
+            var div = document.getElementById("tablo");
+            div.appendChild(tab);
+            return;
+        }
         leads.forEach(function(lead){
-            if(search){
+            var found = true;
+            switch(state){
+                case "all":
+                    break;
+                default:
+                    found = inState(lead.Modified_Time, lead.id, state, "lid");
+                    break;
+            }
+            if(search && found){
                 if(lead.contient(partInfo)){
                     rowTabLead(tab, lead);
                     nbK++;
                 }
-            }else{
+            }else if(found){
                 rowTabLead(tab, lead);
                 nbK++;
             }
@@ -230,7 +261,7 @@ function getReportLead(isFile, partInfo){
         });
         text += "\n";
     }
-    setInfoTab(tableRes, "leads nb="+nbK);
+    setInfoTab(tableRes, translations[locale]["leads-count"]+nbK);
     var div = document.getElementById("tablo");
     div.appendChild(tab);
     return;
@@ -239,11 +270,11 @@ function getReportLead(isFile, partInfo){
 function showReportLead(){
     clearTablos();
     var ine = document.getElementById("leadSearch").value;
-    getReportLead(false, ine);
+    const state = document.querySelector('input[name="lidStates"]:checked').value;
+    getReportLead(false, ine, state);
 }
 function showSimilarLead(){
     clearTablos();
-    window.gqlCVM = document.getElementById("gqlCVM").value;
     var ine = document.getElementById("leadSearch").value;
-    getSimilarLeads(ine, document.getElementById("gqlCVM").value);
+    getSimilarLeads(ine, "");
 }

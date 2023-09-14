@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<!--
+Copyright Stéphane Georges Popoff, (juillet 2009 - septembre 2023)
+
+spopoff@rocketmail.com
+
+Ce logiciel est un programme informatique servant à gérer des habilitations.
+
+Ce logiciel est régi par la licence [CeCILL|CeCILL-B|CeCILL-C] soumise au droit français et
+respectant les principes de diffusion des logiciels libres. Vous pouvez
+utiliser, modifier et/ou redistribuer ce programme sous les conditions
+de la licence [CeCILL|CeCILL-B|CeCILL-C] telle que diffusée par le CEA, le CNRS et l'INRIA
+sur le site "http://www.cecill.info".
+
+En contrepartie de l'accessibilité au code source et des droits de copie,
+de modification et de redistribution accordés par cette licence, il n'est
+offert aux utilisateurs qu'une garantie limitée.  Pour les mêmes raisons,
+seule une responsabilité restreinte pèse sur l'auteur du programme,  le
+titulaire des droits patrimoniaux et les concédants successifs.
+
+A cet égard  l'attention de l'utilisateur est attirée sur les risques
+associés au chargement,  à l'utilisation,  à la modification et/ou au
+développement et à la reproduction du logiciel par l'utilisateur étant
+donné sa spécificité de logiciel libre, qui peut le rendre complexe à
+manipuler et qui le réserve donc à des développeurs et des professionnels
+avertis possédant  des  connaissances  informatiques approfondies.  Les
+utilisateurs sont donc invités à charger  et  tester  l'adéquation  du
+logiciel à leurs besoins dans des conditions permettant d'assurer la
+sécurité de leurs systèmes et ou de leurs données et, plus généralement,
+à l'utiliser et l'exploiter dans les mêmes conditions de sécurité.
+
+Le fait que vous puissiez accéder à cet en-tête signifie que vous avez
+pris connaissance de la licence [CeCILL|CeCILL-B|CeCILL-C], et que vous en avez accepté les
+termes.
+-->
+<html>
+    <head>
+        <title data-i18n-key="page-title">ZOHO Access API</title>
+        <link rel="icon" type="image/vnd.icon" href="favicon.ico">
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <img src='logo2.png' alt="logo" style="margin-right: 10px"/>
+        <script src='jquery-3.3.1.min.js'></script>
+        <script src='Chart.min.js'></script>
+        <script src='bootstrap_min.js'></script>
+        <script src='bootstrap.js'></script>
+        <script src='translation.js'></script>
+        <script src='utils.js'></script>
+        <script src='dataChart.js'></script>
+        <script src='leads.js'></script>
+        <script src='leadsSrc.js'></script>
+        <script src='campaigns.js'></script>
+        <script src='campaignsSrc.js'></script>
+        <script src='accounts.js'></script>
+        <script src='accountsSrc.js'></script>
+        <script src='contacts.js'></script>
+        <script src='contactsSrc.js'></script>
+        <script src='kalitest.js'></script>
+        <script src='leadsKali.js'></script>
+        <script src='leadsSim.js'></script>
+        <script src='contactsKali.js'></script>
+        <script src='contactsSim.js'></script>
+        <script src='accountsKali.js'></script>
+        <script src='campaignsKali.js'></script>
+        <script src='campaignsSim.js'></script>
+        <script src='fusionSrc.js'></script>
+        <script src='modificationsSrc.js'></script>
+        <link rel='stylesheet' type='text/css' href='style.css'/>
+    </head>
+    <body>
+        <h2 data-i18n-key="app-title" id="titre">ZOHO Access API</h2>
+        <div id="msg"></div>
+        <div class="onglet">
+            <button data-i18n-key="data-quality" id="IdDataKali" class="tablinks" onclick="openTab(event, 'DataKali')">Data Quality</button>
+            <button data-i18n-key="data-leads" class="tablinks" onclick="openTab(event, 'Leads')">Leads</button>
+            <button data-i18n-key="data-campaigns" class="tablinks" onclick="openTab(event, 'Campaigns')">Campaigns</button>
+            <button data-i18n-key="data-accounts" class="tablinks" onclick="openTab(event, 'Accounts')">Accounts</button>
+            <button data-i18n-key="data-contacts" class="tablinks" onclick="openTab(event, 'Contacts')">Contacts</button>
+            <button data-i18n-key="data-graphics" class="tablinks" onclick="openTab(event, 'Graphics')">Graphics</button>
+            <button data-i18n-key="data-modifs" class="tablinks" onclick="openTab(event, 'Modification')">Modification</button>
+            <button data-i18n-key="data-params" class="tablinks" onclick="openTab(event, 'Parameters')">Parameters</button>
+        </div>
+        <div id="DataKali" class="tabcontent">
+            <label data-i18n-key="quality-test" for="kali">Data Quality Test:</label>&nbsp;<select id="kali" class="orgas2" name="lesKali">
+                <option data-i18n-key="quality-test-1" value="kali1">Legal Leads Categories</option>
+                <option data-i18n-key="quality-test-2" value="kali2">Leads Email</option>
+                <option data-i18n-key="quality-test-3" value="kali3">Leads Email in Full Name</option>
+                <option data-i18n-key="quality-test-14" value="kali14">Leads with Contact</option>
+                <option data-i18n-key="quality-test-4" value="kali4">Contacts Email</option>
+                <option data-i18n-key="quality-test-5" value="kali5">Deputies Contact check</option>
+                <option data-i18n-key="quality-test-6" value="kali6">Senators Contact check</option>
+                <option data-i18n-key="quality-test-7" value="kali7">Mayors or Elected Contact check</option>
+                <option data-i18n-key="quality-test-8" value="kali8">First name Contact check</option>
+                <option data-i18n-key="quality-test-9" value="kali9">Last Modified Contact check</option>
+                <option data-i18n-key="quality-test-10" value="kali10">Last Modified Account check</option>
+                <option data-i18n-key="quality-test-11" value="kali11">Last Modified Lead check</option>
+                <option data-i18n-key="quality-test-13" value="kali13">Last Modified Campaign check</option>
+                <option data-i18n-key="quality-test-12" value="kali12">Account with Address</option>
+            </select>&nbsp;&nbsp;
+            <label data-i18n-key="quality-level" for="kaliState">State filter:</label>&nbsp;
+            <select id="kaliState" class="orgas2" name="lesKaliState">
+                <option data-i18n-key="quality-all" value="ALL" selected>All States</option>
+                <option data-i18n-key="quality-conform" value="CONFORM">Conform to conformance test</option>
+                <option data-i18n-key="quality-defect" value="DEFECT">Break the conformance test</option>
+                <option data-i18n-key="quality-na" value="NA">Non applicable</option>
+            </select>&nbsp;&nbsp;
+            <label data-i18n-key="quality-query" for="kaliQ">Found as:</label>&nbsp;&nbsp;<input type="text" id="kaliQ" />
+            &nbsp;&nbsp;<button data-i18n-key="quality-button" onclick="showKaliTest()">Show test !</button>
+        </div>
+        <div id="Leads" class="tabcontent">
+            <label data-i18n-key="leads-query" for="leadSearch">Found as:</label><input type="text" id="leadSearch"/>&nbsp;&nbsp;
+            <button data-i18n-key="leads-data" onclick="showReportLead()">report Leads !</button>&nbsp;&nbsp;
+            <button data-i18n-key="leads-sim" onclick="showSimilarLead()">report Leads Similar !</button>
+        </div>
+        <div id="Campaigns" class="tabcontent">
+            <label data-i18n-key="campaigns-query" for="campaignSearch">Found as:</label><input type="text" id="campaignSearch"/>&nbsp;&nbsp;
+            <button data-i18n-key="campaigns-data" onclick="showReportCampaign()">report Campaigns !</button>&nbsp;&nbsp;
+            <button data-i18n-key="campaigns-sim" onclick="showSimilarCampaign()">report Campaigns Similar !</button>
+        </div>
+        <div id="Accounts" class="tabcontent">
+            <label data-i18n-key="accounts-query" for="accountSearch">Found as:</label><input type="text" id="accountSearch"/>&nbsp;&nbsp;
+            <button data-i18n-key="accounts-data" onclick="showReportAccount()">report Accounts !</button>&nbsp;&nbsp;
+            <button data-i18n-key="accounts-cntbyaccnt" onclick="showReportContactsAccount()">report Contact's Accounts !</button><br/>
+            <label data-i18n-key="accounts-nocontact" for="noContact">Without Contact:</label>&nbsp;<input type="checkbox" id="noContact" name="noContact">
+        </div>
+        <div id="Contacts" class="tabcontent">
+            <label data-i18n-key="contacts-query" for="contactSearch">Found as:</label><input type="text" id="contactSearch"/>&nbsp;&nbsp;
+            <button data-i18n-key="contacts-data" onclick="showReportContact()">report Contacts !</button>&nbsp;&nbsp;
+            <button data-i18n-key="contacts-csv" onclick="printReportContact()">Export Contacts !</button>&nbsp;&nbsp;
+            <button data-i18n-key="contacts-sim" onclick="showSimilarContact()">report Contacts Similar !</button>
+        </div>
+        <div id="Graphics" class="tabcontent500">
+            <label data-i18n-key="graphics-metric" for="grafs">Select Metric:</label>&nbsp;<select id="grafs" class="orgas2" name="lesGrafs">
+                    <option data-i18n-key="graphics-metric-2_1" value="2_1">Nb of Datas</option>
+                    <option data-i18n-key="graphics-metric-2_2" value="2_2">Leads by Tags</option>
+                    <option data-i18n-key="graphics-metric-2_3" value="2_3">Accounts by Type</option>
+                    <option data-i18n-key="graphics-metric-2_4" value="2_4">Accounts by Network</option>
+                    <option data-i18n-key="graphics-metric-2_5" value="2_5">top ten of Contacts per Accounts</option>
+                    <option data-i18n-key="graphics-metric-2_6" value="2_6">Items state of freshness</option>
+                    <option data-i18n-key="graphics-metric-2_7" value="2_7">Account and Contacts</option>
+            </select>
+            &nbsp;&nbsp;<button data-i18n-key="graphics-run" onclick="showGraph()">Show Graphic !</button><br/>
+            <div id="container1" class="boite">
+                    <canvas id="chartUn"  class="chart-boite"></canvas>
+            </div>
+        </div>
+        <div id="Modification" class="tabcontent">
+            <button data-i18n-key="modifs-launch" onclick="pendingModification()">Show Pending Modifications !</button>
+        </div>
+        <div id="Parameters" class="tabcontent300">
+            <label data-i18n-key="params-gql-host" for="gqlCVM">GraphQL Server:</label>&nbsp;&nbsp;<input type="text" id="gqlCVM" size="50"/><br/>
+            <label data-i18n-key="params-clientId" for="cliId">Client ID:</label>&nbsp;&nbsp;<input type="text" id="cliId" size="100"/><br/>
+            <label data-i18n-key="params-clientSecret" for="cliSec">Client Secret:</label>&nbsp;&nbsp;<input type="text" id="cliSec" size="100"/><br/>
+            <label data-i18n-key="params-authCode" for="authCode">Scopes or Code:</label>&nbsp;&nbsp;<input type="text" id="authCode" size="100"/><br/>
+            <button data-i18n-key="params-authz-code" onclick="requestAuthzCode()">Request Code !</button>&nbsp;&nbsp;
+            <button data-i18n-key="params-get-akstok" onclick="requestAkstok()">Request Access Token !</button>&nbsp;&nbsp;
+            <button data-i18n-key="params-re-akstok" onclick="refreshAkstok()">Refresh Access Token !</button>
+        </div>
+        <hr size='10' noshade>
+	<div id="tablo"></div></br>
+	<div id="tabloRes"></div></br>
+	<div id="tabloErr"></div>
+    </body>
+</html>

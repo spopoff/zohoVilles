@@ -1,5 +1,5 @@
 /* 
-Copyright Stéphane Georges Popoff, (juillet 2009 - août 2023)
+Copyright Stéphane Georges Popoff, (juillet 2009 - septembre 2023)
 
 spopoff@rocketmail.com
 
@@ -56,19 +56,6 @@ function rowTabSimilarContact(table, contactSim, url){
 //    var txha2 = document.createTextNode(x2);
     tha2.appendChild(x2);
     tr.appendChild(tha2);
-    var th3 = document.createElement('td');
-    const x3 = document.createElement("A");
-    var idLink = 'cnt;'+ contactSim.id1+";" +contactSim.id2+ ";"+url;
-    x3.id = idLink;
-    x3.text = "fusion";
-    x3.href = "fusion.html#&fk="+idLink;
-    //x3.href = "?fk="+idLink;
-    x3.target = "_blank";
-    //x3.onclick = function(e) { return fusionClick(e); };
-    //x3.onclick = function(e) { window.dispatchEvent(new Event('locationchange')); };
-//    var txha2 = document.createTextNode(x2);
-    th3.appendChild(x3);
-    tr.appendChild(th3);
     table.appendChild(tr);
 }
 
@@ -94,6 +81,10 @@ function rowTabContact(table, cntc){
     x1.target = "_blank";
     thm.appendChild(x1);
     tr.appendChild(thm);
+    var the2 = document.createElement('td');
+    var txhe2 = document.createTextNode(cntc.Secondary_Email);
+    the2.appendChild(txhe2);
+    tr.appendChild(the2);
     var ths = document.createElement('td');
     var parent = "";
     if(cntc.Account_Name !== undefined){
@@ -116,9 +107,11 @@ function rowTabContact(table, cntc){
     tr.appendChild(tht);
     var thg = document.createElement('td');
     var tags = "";
-    cntc.Tag.forEach(function(tag){
-        tags += tag.name +" ";
-    });
+    if(cntc.Tag.length > 0){
+        cntc.Tag.forEach(function(tag){
+            tags += tag.name +" ";
+        });
+    }
     var txhg = document.createTextNode(tags);
     thg.appendChild(txhg);
     tr.appendChild(thg);
@@ -128,17 +121,13 @@ function headTabSimilarContact(){
     var table = document.createElement('table');
     var tr = document.createElement('tr'); 
     var tha = document.createElement('th');
-    var txha = document.createTextNode('Full Name 1');
+    var txha = document.createTextNode(translations[locale]["contacts-sim-1"]);
     tha.appendChild(txha);
     tr.appendChild(tha);
     var tha2 = document.createElement('th');
-    var txha2 = document.createTextNode('Full Name 2');
+    var txha2 = document.createTextNode(translations[locale]["contacts-sim-2"]);
     tha2.appendChild(txha2);
     tr.appendChild(tha2);
-    var th3 = document.createElement('th');
-    var txh3 = document.createTextNode('Fusion !');
-    th3.appendChild(txh3);
-    tr.appendChild(th3);
     table.appendChild(tr);
     return table;
 }
@@ -148,35 +137,39 @@ function headTabContact(){
     var table = document.createElement('table');
     var tr = document.createElement('tr'); 
     var thi = document.createElement('th');
-    var txhi = document.createTextNode('Last_Name');
+    var txhi = document.createTextNode(translations[locale]["contacts-lname"]);
     thi.appendChild(txhi);
     tr.appendChild(thi);
     var tha = document.createElement('th');
-    var txha = document.createTextNode('First_Name');
+    var txha = document.createTextNode(translations[locale]["contacts-1name"]);
     tha.appendChild(txha);
     tr.appendChild(tha);
     var ths = document.createElement('th');
-    var txhs = document.createTextNode('Full_Name');
+    var txhs = document.createTextNode(translations[locale]["contacts-fullname"]);
     ths.appendChild(txhs);
     tr.appendChild(ths);
     var thp = document.createElement('th');
-    var txhp = document.createTextNode('Email');
+    var txhp = document.createTextNode(translations[locale]["contacts-email"]);
     thp.appendChild(txhp);
     tr.appendChild(thp);
+    var th2e = document.createElement('th');
+    var txh2e = document.createTextNode(translations[locale]["contacts-2email"]);
+    th2e.appendChild(txh2e);
+    tr.appendChild(th2e);
     var tht = document.createElement('th');
-    var txht = document.createTextNode('Account_Name');
+    var txht = document.createTextNode(translations[locale]["contacts-account"]);
     tht.appendChild(txht);
     tr.appendChild(tht);
     var tho = document.createElement('th');
-    var txho = document.createTextNode('Owner');
+    var txho = document.createTextNode(translations[locale]["contacts-owner"]);
     tho.appendChild(txho);
     tr.appendChild(tho);
     var thr = document.createElement('th');
-    var txhr = document.createTextNode('Membre_du_Reseau');
+    var txhr = document.createTextNode(translations[locale]["contacts-mbrreseau"]);
     thr.appendChild(txhr);
     tr.appendChild(thr);
     var thg = document.createElement('th');
-    var txhg = document.createTextNode('Tag');
+    var txhg = document.createTextNode(translations[locale]["contacts-tag"]);
     thg.appendChild(txhg);
     tr.appendChild(thg);
     table.appendChild(tr);
@@ -201,7 +194,7 @@ function getSimilarContacts(partInfo, url){
             nbK++;
         }
     });
-    setInfoTab(tableRes, "contacts similar nb="+nbK);
+    setInfoTab(tableRes, translations[locale]["contacts-count-sim"]+nbK);
     var div = document.getElementById("tablo");
     div.appendChild(tab);
     return;
@@ -222,7 +215,7 @@ function getContactInfo(id){
     }
 }
 
-function getReportContact(isFile, partInfo){
+function getReportContact(isFile, partInfo, state){
     var nbK = 0;
     var search = false;
     var parts = [];
@@ -233,41 +226,110 @@ function getReportContact(isFile, partInfo){
     }
     if(!isFile){
         var tab = headTabContact();
+        if("del" === state){
+            contactsOld.forEach(function(old){
+                const itm = contacts.find((lid) => lid.id === old.id);
+                if(itm === undefined){
+                    const del = new Contact(old.id);
+                    del.Name = old.id;
+                    del.Modified_Time = old.Modified_Time;
+                    rowTabLead(tab, del);
+                    nbK++;
+                }
+            });
+            setInfoTab(tableRes, translations[locale]["leads-count"]+nbK);
+            var div = document.getElementById("tablo");
+            div.appendChild(tab);
+            return;
+        }
+        if("new" === state){
+            contacts.forEach(function(lid){
+                const old = contactsOld.find((un) => un.id === lid.id);
+                if(old === undefined){
+                    rowTabLead(tab, lid);
+                    nbK++;
+                }
+            });
+            setInfoTab(tableRes, translations[locale]["leads-count"]+nbK);
+            var div = document.getElementById("tablo");
+            div.appendChild(tab);
+            return;
+        }
         contacts.forEach(function(contact){
-            if(search){
+            var found = true;
+            switch(state){
+                case "all":
+                    break;
+                default:
+                    found = inState(contact.Modified_Time, contact.id, state, "cnt");
+                    break;
+            }
+            if(search && found){
                 $.each(parts, function(index, value){
                     if(contact.contient(value.trim())){
                         rowTabContact(tab, contact);
                         nbK++;
                     }
                 });
-            }else{
+            }else if(found){
                 rowTabContact(tab, contact);
                 nbK++;
             }
         });
     }else{
-        text = "lastName,firstName,fullName,email,accountName,owner,memberReseau,tags,id\n";
+        text = "email;secondaryEmail;firstName;lastName;fullName;company;tags;id\n";
         var sep = ";";
-        accounts.forEach(function(attr){
-            text += attr.Email + sep + attr.First_Name + sep + attr.Last_Name
-             + sep + attr.Company + sep + attr.Tag + sep + attr.id + "\n";
+        var nbK = 0;
+        contacts.forEach(function(attr){
+            if(search){
+                $.each(parts, function(index, value){
+                    if(attr.contient(value.trim())){
+                        text += toContactRow(attr, sep);
+                        nbK++;
+                    }
+                });
+            }else{
+                text += toContactRow(attr, sep);
+                nbK++;
+            }
         });
         text += "\n";
+        download("contacts.csv", text);
+        setInfoTab(tableRes, translations[locale]["contacts-count"]+nbK);
+        return;
     }
-    setInfoTab(tableRes, "contacts nb="+nbK);
+    setInfoTab(tableRes, translations[locale]["contacts-count"]+nbK);
     var div = document.getElementById("tablo");
     div.appendChild(tab);
     return;
 }
+function toContactRow(attr, sep){
+    var tags = "";
+    if(attr.Tag.length > 0){
+        var sp = "";
+        attr.Tag.forEach(function(tag){
+            tags += sp+tag.name;
+            sp = "|";
+        });
+    }
+    return attr.Email + sep + attr.Secondary_Email+ sep + 
+        attr.First_Name + sep + attr.Last_Name+ sep + attr.Full_Name
+        + sep + attr.Company + sep + tags + sep + attr.id + "\n";
 
+}
 function showReportContact(){
     clearTablos();
     var ine = document.getElementById("contactSearch").value;
-    getReportContact(false, ine);
+    const state = document.querySelector('input[name="cntStates"]:checked').value;
+    getReportContact(false, ine, state);
+}
+function printReportContact(){
+    clearTablos();
+    var ine = document.getElementById("contactSearch").value;
+    getReportContact(true, ine);
 }
 function showSimilarContact(){
     clearTablos();
     var ine = document.getElementById("contactSearch").value;
-    getSimilarContacts(ine, document.getElementById("gqlCVM").value);
+    getSimilarContacts(ine, "");
 }

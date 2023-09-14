@@ -1,5 +1,5 @@
 /*
-Copyright Stéphane Georges Popoff, (juillet 2009 - août 2023)
+Copyright Stéphane Georges Popoff, (juillet 2009 - septembre 2023)
 
 spopoff@rocketmail.com
 
@@ -34,24 +34,10 @@ termes.
  */
 
 
-var tableRes = document.createElement('table');
-var tableErr = document.createElement('table');
-var aps = [];
-var oaps = [];
-var zohoAk = "";
-var zohoUrl = "";
-var zohoRd = "";
-var zohoSc = "";
-var zohoId = "";
-var zohoCd = "";
 var zohokali = [];
-var leads = [];
-var simLeads = [];
-var simContacts = [];
-var contacts = [];
-var accounts = [];
-const zohoCVM = "https://crm.zoho.com/crm/org26538990/";
-const gqlCVM = "http://ebcvm3-env.eba-ysawcnrp.eu-west-1.elasticbeanstalk.com/graphql";
+
+var color = Chart.helpers.color;
+var chartSeul = {};
 
 class DataChart{
     constructor(code, type, label){
@@ -78,149 +64,7 @@ class DataSet{
         this.data.push(data);
     }
 }
-class Lead{
-    constructor(First_Name, Last_Name, Email, Company, Tag, id){
-        this.First_Name = First_Name;
-        this.Last_Name = Last_Name;
-        this.Email = Email;
-        this.Company = Company;
-        this.Tag = Tag;
-        this.id = id;
-        this.infos = First_Name.toLowerCase() + ' '
-            + Last_Name.toLowerCase() + ' '
-            + Company.toLowerCase() + ' '
-            + Email.toLowerCase();
-        this.infos = cleanAccent(this.infos);
-    }
-    set addAccount(account){
-        this.accounts.push(account);
-        account.addLead = this;
-    }
-}
-Lead.prototype.contient = function(ine){
-    if(this.infos.includes(ine)){
-        return true;
-    }
-    return false;
-};
-class Account{
-    constructor(Account_Name, Phone, Parent_Account, Reseau, Account_Type, id){
-        this.Account_Name = Account_Name;
-        this.Phone =  Phone;
-        this.Parent_Account = Parent_Account;
-        this.Reseau = Reseau;
-        this.Account_Type = Account_Type;
-        this.id = id;
-        this.infos = Account_Name.toLowerCase() + ' '
-            + Account_Type.toLowerCase();
-        var rez = '';
-        if(Reseau !== undefined){
-            Reseau.forEach(function(rezo){
-                rez += ' ' + rezo.name.toLowerCase();
-            });
-        }
-        this.infos += rez;
-        if(Parent_Account !== undefined){
-            this.infos += ' ' + Parent_Account.name;
-        }
-        this.infos = cleanAccent(this.infos);
-        this.contacts = [];
-    }
-    set addContact(contact){
-        this.contacts.push(contact);
-    }
-}
-Account.prototype.contient = function(ine){
-    if(this.infos.includes(ine)){
-        return true;
-    }
-    return false;
-};
-class Contact{
-    constructor(Last_Name,First_Name,Full_Name,Email,Account_Name,Owner,Membre_du_R_seau,Tag,id){
-        this.Last_Name =  Last_Name;
-        this.First_Name =  First_Name;
-        this.Full_Name =  Full_Name;
-        this.Email =  Email;
-        this.Account_Name =  Account_Name;
-        this.Owner =  Owner;
-        this.Membre_du_R_seau =  Membre_du_R_seau;
-        this.Tag =  Tag;
-        this.id = id;
-        this.infos = First_Name.toLowerCase() + ' '
-            + Last_Name.toLowerCase() + ' '
-            + Full_Name.toLowerCase() + ' '
-            + Email.toLowerCase() + ' '
-            + Membre_du_R_seau + ' ';
-        if(Account_Name !== undefined){
-            this.infos += Account_Name.name + ' ';
-        }
-        if(Owner !== undefined){
-            this.infos += Owner.name + ' ';
-        }
-        this.infos = cleanAccent(this.infos);
-    }
-}
-Contact.prototype.contient = function(ine){
-    if(this.infos.includes(ine)){
-        return true;
-    }
-    return false;
-};
 
-class SimLead{
-    constructor(First_Name1, Last_Name1, id1, First_Name2, Last_Name2, id2){
-        this.First_Name1 = First_Name1;
-        this.Last_Name1 = Last_Name1;
-        this.id1 = id1;
-        this.First_Name2 = First_Name2;
-        this.Last_Name2 = Last_Name2;
-        this.id2 = id2;
-        this.infos = First_Name1 + ' '+Last_Name1+' '+First_Name2 + ' '+Last_Name2;
-        this.infos = this.infos.toLowerCase();
-        this.infos = cleanAccent(this.infos);
-        this.selected = true;
-    }
-};
-SimLead.prototype.contient = function(ine){
-    if(this.infos.includes(ine)){
-        return true;
-    }
-    return false;
-};
-class SimContact{
-    constructor(Full_Name1, id1, Full_Name2, id2){
-        this.Full_Name1 = Full_Name1;
-        this.id1 = id1;
-        this.Full_Name2 = Full_Name2;
-        this.id2 = id2;
-        this.infos = Full_Name1 + ' '+Full_Name2;
-        this.infos = this.infos.toLowerCase();
-        this.infos = cleanAccent(this.infos);
-        this.selected = true;
-    }
-};
-SimContact.prototype.contient = function(ine){
-    if(this.infos.includes(ine)){
-        return true;
-    }
-    return false;
-};
-
-function cleanAccent(thisinfos){
-        thisinfos = thisinfos.replaceAll('é', 'e');
-        thisinfos = thisinfos.replaceAll('à', 'a');
-        thisinfos = thisinfos.replaceAll('è', 'e');
-        thisinfos = thisinfos.replaceAll('ê', 'e');
-        thisinfos = thisinfos.replaceAll('ë', 'e');
-        thisinfos = thisinfos.replaceAll('û', 'u');
-        thisinfos = thisinfos.replaceAll('ù', 'u');
-        thisinfos = thisinfos.replaceAll('ô', 'o');
-        thisinfos = thisinfos.replaceAll('î', 'i');
-        return thisinfos;
-}
-var color = Chart.helpers.color;
-var chartSeul = {};
 /**
  * Affiche le contenu d'un onglet
  * @param {type} evt
@@ -242,6 +86,7 @@ function openTab(evt, tabName) {
     }
     var tabGraph = document.getElementsByClassName("tabcontent500");
     tabGraph[0].style.display = "none";
+    
     // Get all elements with class="tablinks" and remove the class "active"
     tablinks = document.getElementsByClassName("tablinks");
     for (i = 0; i < tablinks.length; i++) {
@@ -255,22 +100,6 @@ function openTab(evt, tabName) {
     clearTablos();
 //    var div = document.getElementById("tablo");
 //    div.innerHTML = '';
-}
-function getQueryString(href){
-    var result = {};
-    var qs = href.slice(1);
-    var parts = qs.split("#");
-    var prms = parts[1].split("&");
-    if(prms.length > 1){
-        for(var i = 0, len=prms.length; i<len; i++){
-            var tokens = prms[i].split("=");
-            result[tokens[0]] = tokens[1];
-        }
-    }else{
-        var tokens = parts[1].split("=");
-        result[tokens[0]] = tokens[1];
-    }
-    return result;
 }
 window.onhashchange = function( e ) {
     console.log( location.hash );
@@ -300,7 +129,8 @@ if(!window.HashChangeEvent)(function(){
 }());
 
 document.addEventListener("DOMContentLoaded", () => {
-  simLeads.sort((a, b) => a.id2.localeCompare(b.id2));
-  simContacts.sort((a, b) => a.id2.localeCompare(b.id2));
-  document.getElementById("gqlCVM").value = gqlCVM;
+    translatePage();
+    simLeads.sort((a, b) => a.id2.localeCompare(b.id2));
+    simContacts.sort((a, b) => a.id2.localeCompare(b.id2));
+    simCampaigns.sort((a, b) => a.id2.localeCompare(b.id2));
 });
