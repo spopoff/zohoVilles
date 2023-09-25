@@ -110,8 +110,6 @@ termes.
         </div>
         <div id="Leads" class="tabcontent">
             <label data-i18n-key="leads-query" for="leadSearch">Found as:</label><input type="text" id="leadSearch"/>&nbsp;&nbsp;
-            <button data-i18n-key="leads-data" onclick="showReportLead()">report Leads !</button>&nbsp;&nbsp;
-            <button data-i18n-key="leads-sim" onclick="showSimilarLead()">report Leads Similar !</button><br/>
             <input type="radio" id="deltaAllLead" value="all" name="lidStates" checked/>
                 <label data-i18n-key="delta-all" for="deltaAllLead">All States</label>&nbsp;&nbsp;
             <input type="radio" id="deltaIdemLead" value="idm" name="lidStates"/>
@@ -121,12 +119,12 @@ termes.
             <input type="radio" id="deltaUpdtLead" value="upd" name="lidStates"/>
                 <label data-i18n-key="delta-updt" for="deltaUpdtLead">Updated</label>&nbsp;&nbsp;
             <input type="radio" id="deltaNewLead" value="new" name="lidStates"/>
-                <label data-i18n-key="delta-new" for="deltaNewLead">New</label>
+                <label data-i18n-key="delta-new" for="deltaNewLead">New</label>&nbsp;&nbsp;
+            <button data-i18n-key="leads-data" onclick="showReportLead()">report Leads !</button>&nbsp;&nbsp;
+            <br/><button data-i18n-key="leads-sim" onclick="showSimilarLead()">report Leads Similar !</button><br/>
         </div>
         <div id="Campaigns" class="tabcontent">
             <label data-i18n-key="campaigns-query" for="campaignSearch">Found as:</label><input type="text" id="campaignSearch"/>&nbsp;&nbsp;
-            <button data-i18n-key="campaigns-data" onclick="showReportCampaign()">report Campaigns !</button>&nbsp;&nbsp;
-            <button data-i18n-key="campaigns-sim" onclick="showSimilarCampaign()">report Campaigns Similar !</button><br/>
             <input type="radio" id="deltaAllCmp" value="all" name="cmpStates" checked/>
                 <label data-i18n-key="delta-all" for="deltaAllCmp">All States</label>&nbsp;&nbsp;
             <input type="radio" id="deltaIdemCmp" value="idm" name="cmpStates"/>
@@ -136,13 +134,12 @@ termes.
             <input type="radio" id="deltaUpdtCmp" value="upd" name="cmpStates"/>
                 <label data-i18n-key="delta-updt" for="deltaUpdtCmp">Updated</label>&nbsp;&nbsp;
             <input type="radio" id="deltaNewCmp" value="new" name="cmpStates"/>
-                <label data-i18n-key="delta-new" for="deltaNewCmp">New</label>
+                <label data-i18n-key="delta-new" for="deltaNewCmp">New</label>&nbsp;&nbsp;
+            <button data-i18n-key="campaigns-data" onclick="showReportCampaign()">report Campaigns !</button>&nbsp;&nbsp;
+            <br/><button data-i18n-key="campaigns-sim" onclick="showSimilarCampaign()">report Campaigns Similar !</button><br/>
         </div>
         <div id="Accounts" class="tabcontent">
             <label data-i18n-key="accounts-query" for="accountSearch">Found as:</label><input type="text" id="accountSearch"/>&nbsp;&nbsp;
-            <button data-i18n-key="accounts-data" onclick="showReportAccount()">report Accounts !</button>&nbsp;&nbsp;
-            <button data-i18n-key="accounts-cntbyaccnt" onclick="showReportContactsAccount()">report Contact's Accounts !</button><br/>
-            <label data-i18n-key="accounts-nocontact" for="noContact">Without Contact:</label>&nbsp;<input type="checkbox" id="noContact" name="noContact"><br/>
             <input type="radio" id="deltaAllAccnt" value="all" name="accStates" checked/>
                 <label data-i18n-key="delta-all" for="deltaAllAccnt">All States</label>&nbsp;&nbsp;
             <input type="radio" id="deltaIdemAccnt" value="idm" name="accStates"/>
@@ -152,13 +149,13 @@ termes.
             <input type="radio" id="deltaUpdtAccnt" value="upd" name="accStates"/>
                 <label data-i18n-key="delta-updt" for="deltaUpdtAccnt">Updated</label>&nbsp;&nbsp;
             <input type="radio" id="deltaNewAccnt" value="new" name="accStates"/>
-                <label data-i18n-key="delta-new" for="deltaNewAccnt">New</label>
+                <label data-i18n-key="delta-new" for="deltaNewAccnt">New</label>&nbsp;&nbsp;
+            <label data-i18n-key="accounts-nocontact" for="noContact">Without Contact:</label>&nbsp;<input type="checkbox" id="noContact" name="noContact">&nbsp;&nbsp;
+            <button data-i18n-key="accounts-data" onclick="showReportAccount()">report Accounts !</button>&nbsp;&nbsp;
+            <br/><button data-i18n-key="accounts-cntbyaccnt" onclick="showReportContactsAccount()">report Contact's Accounts !</button>&nbsp;&nbsp;
         </div>
         <div id="Contacts" class="tabcontent">
             <label data-i18n-key="contacts-query" for="contactSearch">Found as:</label><input type="text" id="contactSearch"/>&nbsp;&nbsp;
-            <button data-i18n-key="contacts-data" onclick="showReportContact()">report Contacts !</button>&nbsp;&nbsp;
-            <button data-i18n-key="contacts-csv" onclick="printReportContact()">Export Contacts !</button>&nbsp;&nbsp;
-            <button data-i18n-key="contacts-sim" onclick="showSimilarContact()">report Contacts Similar !</button><br/>
             <input type="radio" id="deltaAllCnt" value="all" name="cntStates" checked/>
                 <label data-i18n-key="delta-all" for="deltaAllCnt">All States</label>&nbsp;&nbsp;
             <input type="radio" id="deltaIdemCnt" value="idm" name="cntStates"/>
@@ -168,7 +165,10 @@ termes.
             <input type="radio" id="deltaUpdtCnt" value="upd" name="cntStates"/>
                 <label data-i18n-key="delta-updt" for="deltaUpdtCnt">Updated</label>&nbsp;&nbsp;
             <input type="radio" id="deltaNewCnt" value="new" name="cntStates"/>
-                <label data-i18n-key="delta-new" for="deltaNewCnt">New</label>
+                <label data-i18n-key="delta-new" for="deltaNewCnt">New</label>&nbsp;&nbsp;
+            <button data-i18n-key="contacts-data" onclick="showReportContact()">report Contacts !</button>&nbsp;&nbsp;
+            <br/><button data-i18n-key="contacts-csv" onclick="printReportContact()">Export Contacts !</button>&nbsp;&nbsp;
+            <button data-i18n-key="contacts-sim" onclick="showSimilarContact()">report Contacts Similar !</button><br/>
         </div>
         <div id="Graphics" class="tabcontent500">
             <label data-i18n-key="graphics-metric" for="grafs">Select Metric:</label>&nbsp;<select id="grafs" class="orgas2" name="lesGrafs">

@@ -412,10 +412,6 @@ function getData(objGF){
         break;
         case "2_8":
             var ids = new DataSet("Changements_depuis_dernier_rapport");
-            objGF.addLabel = "Nb événements";
-            ids.addData = campaigns.length;
-            objGF.addLabel = "Nb événements inchangés";
-            ids.addData = getNb4States4Type("idm", campaignsOld, campaigns, "cmp");
             objGF.addLabel = "Nb événements supprimés";
             ids.addData = getNb4States4Type("del", campaignsOld, campaigns, "cmp");
             objGF.addLabel = "Nb événements modifiés";
@@ -423,10 +419,6 @@ function getData(objGF){
             objGF.addLabel = "Nb événements nouveaux";
             ids.addData = getNb4States4Type("new", campaignsOld, campaigns, "cmp");
 
-            objGF.addLabel = "Nb pistes";
-            ids.addData = leads.length;
-            objGF.addLabel = "Nb pistes inchangés";
-            ids.addData = getNb4States4Type("idm", leadsOld, leads, "lid");
             objGF.addLabel = "Nb pistes supprimés";
             ids.addData = getNb4States4Type("del", leadsOld, leads, "lid");
             objGF.addLabel = "Nb pistes modifiés";
@@ -434,10 +426,6 @@ function getData(objGF){
             objGF.addLabel = "Nb pistes nouveaux";
             ids.addData = getNb4States4Type("new", leadsOld, leads, "lid");
             
-            objGF.addLabel = "Nb comptes";
-            ids.addData = accounts.length;
-            objGF.addLabel = "Nb comptes inchangés";
-            ids.addData = getNb4States4Type("idm", accountsOld, accounts, "acc");
             objGF.addLabel = "Nb comptes supprimés";
             ids.addData = getNb4States4Type("del", accountsOld, accounts, "acc");
             objGF.addLabel = "Nb comptes modifiés";
@@ -445,10 +433,6 @@ function getData(objGF){
             objGF.addLabel = "Nb comptes nouveaux";
             ids.addData = getNb4States4Type("new", accountsOld, accounts, "acc");
             
-            objGF.addLabel = "Nb contacts";
-            ids.addData = contacts.length;
-            objGF.addLabel = "Nb contacts inchangés";
-            ids.addData = getNb4States4Type("idm", contactsOld, contacts, "cnt");
             objGF.addLabel = "Nb contacts supprimés";
             ids.addData = getNb4States4Type("del", contactsOld, contacts, "cnt");
             objGF.addLabel = "Nb contacts modifiés";

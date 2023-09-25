@@ -220,7 +220,7 @@ const translations = {
         "leads-tag":"Tag",
         "leads-count":"Pistes nb=",
         "leads-count-sim":"Pistes similaires nb=",
-        "campaigns-query":"Contien :",
+        "campaigns-query":"Contient :",
         "campaigns-data":"Rapport des Evénements !",
         "campaigns-sim":"Rapport des Evénements similaires !",
         "campaigns-sim-1":"Nom événement 1",
