@@ -1,5 +1,5 @@
 /* 
-Copyright Stéphane Georges Popoff, (juillet 2009 - septembre 2023)
+Copyright Stéphane Georges Popoff, (juillet 2009 - octobre 2023)
 
 spopoff@rocketmail.com
 
@@ -115,6 +115,10 @@ function rowTabContact(table, cntc){
     var txhg = document.createTextNode(tags);
     thg.appendChild(txhg);
     tr.appendChild(thg);
+    var thid = document.createElement('td');
+    var txhid = document.createTextNode(cntc.identityID);
+    thid.appendChild(txhid);
+    tr.appendChild(thid);
     table.appendChild(tr);
 }
 function headTabSimilarContact(){
@@ -172,6 +176,10 @@ function headTabContact(){
     var txhg = document.createTextNode(translations[locale]["contacts-tag"]);
     thg.appendChild(txhg);
     tr.appendChild(thg);
+    var thid = document.createElement('th');
+    var txhid = document.createTextNode(translations[locale]["contacts-idntID"]);
+    thid.appendChild(txhid);
+    tr.appendChild(thid);
     table.appendChild(tr);
     return table;
 }
@@ -215,7 +223,7 @@ function getContactInfo(id){
     }
 }
 
-function getReportContact(isFile, partInfo, state){
+function getReportContact(isFile, partInfo, state, isGen){
     var nbK = 0;
     var search = false;
     var parts = [];
@@ -272,8 +280,10 @@ function getReportContact(isFile, partInfo, state){
                     }
                 });
             }else if(found){
-                rowTabContact(tab, contact);
-                nbK++;
+                if((isGen && contact.indic === '&') || !isGen){
+                    rowTabContact(tab, contact);
+                    nbK++;
+                }
             }
         });
     }else{
@@ -321,12 +331,13 @@ function showReportContact(){
     clearTablos();
     var ine = document.getElementById("contactSearch").value;
     const state = document.querySelector('input[name="cntStates"]:checked').value;
-    getReportContact(false, ine, state);
+    const isGen = document.getElementById("genContact").checked;
+    getReportContact(false, ine, state, isGen);
 }
 function printReportContact(){
     clearTablos();
     var ine = document.getElementById("contactSearch").value;
-    getReportContact(true, ine);
+    getReportContact(true, ine, undefined, undefined);
 }
 function showSimilarContact(){
     clearTablos();

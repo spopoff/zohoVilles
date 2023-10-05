@@ -1,5 +1,5 @@
 /*
-Copyright Stéphane Georges Popoff, (juillet 2009 - septembre 2023)
+Copyright Stéphane Georges Popoff, (juillet 2009 - octobre 2023)
 
 spopoff@rocketmail.com
 
@@ -112,6 +112,8 @@ const translations = {
         "contacts-owner":"Owner",
         "contacts-mbrreseau":"Network Member",
         "contacts-tag":"Tag",
+        "contacts-idntID":"Identity ID",
+        "contacts-generic":"Generics",
         "contacts-count":"Contacts nb=",
         "contacts-count-sim":"Similar Contacts nb=",
         "contacts-sim-1":"Similar full name 1",
@@ -246,6 +248,8 @@ const translations = {
         "contacts-owner":"Propriétaire",
         "contacts-mbrreseau":"Membre du réseau",
         "contacts-tag":"Tag",
+        "contacts-idntID":"Identité unique",
+        "contacts-generic":"Génériques",
         "contacts-count":"Contacts nb=",
         "contacts-count-sim":"Contacts similaires nb=",
         "contacts-sim-1":"Contact similaire 1",

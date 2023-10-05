@@ -152,6 +152,7 @@ class Contact{
         this.id = id;
         this.infos = "";
         this.accounts = [];
+        this.indic = "";
     }
     set addAccount(account){
         this.accounts.push(account);
@@ -171,6 +172,11 @@ setInfosContact = function(){
         this.infos += this.Owner.name + ' ';
     }
     this.infos = cleanAccent(this.infos);
+    if(this.identityID.toLocaleString().startsWith('!')){
+        this.indic = this.identityID.toLocaleString().substring(1,1);
+    }else{
+        this.indic = this.identityID.toLocaleString().substring(0,1);
+    }
 };
 
 Contact.prototype.contient = function(ine){
