@@ -1,5 +1,5 @@
 /*
-Copyright Stéphane Georges Popoff, (juillet 2009 - septembre 2023)
+Copyright Stéphane Georges Popoff, (juillet 2009 - octobre 2023)
 
 spopoff@rocketmail.com
 
@@ -172,11 +172,6 @@ setInfosContact = function(){
         this.infos += this.Owner.name + ' ';
     }
     this.infos = cleanAccent(this.infos);
-    if(this.identityID.toLocaleString().startsWith('!')){
-        this.indic = this.identityID.toLocaleString().substring(1,1);
-    }else{
-        this.indic = this.identityID.toLocaleString().substring(0,1);
-    }
 };
 
 Contact.prototype.contient = function(ine){
