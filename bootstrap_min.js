@@ -279,7 +279,7 @@ function cleanAccent(thisinfos){
         thisinfos = thisinfos.replaceAll('ù', 'u');
         thisinfos = thisinfos.replaceAll('ô', 'o');
         thisinfos = thisinfos.replaceAll('î', 'i');
-        return thisinfos;
+        return thisinfos.toString().toLocaleLowerCase();
 }
 
 function getQueryString(href){
